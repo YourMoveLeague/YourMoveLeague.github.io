@@ -307,10 +307,10 @@ setInterval(()=>{
   if(!L) return;
   const cj=document.getElementById('cdJ');
   if(cj){
-    const w=activeW();
-    const t=fmtCd(weekEnd(w)-new Date());
+    const target=calWeek()<0?weekStart(0):weekEnd(activeW());
+    const t=fmtCd(target-new Date());
     if(t) cj.textContent=t;
-    else { render(); return; }   // llegó a 0 → repintar (aparece el botón)
+    else { render(); return; }   // llegó a 0 → repintar
   }
   const cd=document.getElementById('cdD');
   if(cd){
@@ -491,9 +491,19 @@ function duelLine(a,b,w,r){
 function tJornada(){
   const s=ses(), cfg=L.league.config, cw=calWeek(), w=activeW();
   if(!s){ pickPlayer('jornada'); return; }
-  if(cw<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}. Ve calentando.</p></div>`+btnBar(); return; }
+  if(cw<0){
+    const devPre=DEV?`<div class="card" style="border-style:dashed"><h2>${ic('settings')} Modo desarrollador</h2>
+      <button class="btn sec" onclick="devStartNow()">Empezar la liga hoy (mueve la fecha de inicio)</button>
+      <div class="err" id="dErr"></div></div>`:'';
+    $('#main').innerHTML=`
+    <div class="card stickcard"><div class="cdlbl">La liga empieza en</div><div class="cd" id="cdJ">…</div></div>
+    ${devPre}
+    <div class="card"><p class="msg">Jornada 1 el ${cfg.start}. Ve calentando.</p></div>`+btnBar();
+    return;
+  }
   if(w>=cfg.weeks||firstUnresolved()>=cfg.weeks){
-    $('#main').innerHTML=`<div class="card"><h2>${ic('trophy')} Liga terminada</h2><p class="msg">Campeón: <b>${esc(standings()[0].name)}</b>. ¡Gracias por jugar!</p></div>`+btnBar(); return;
+    $('#main').innerHTML=`<div class="card"><h2>${ic('trophy')} Liga terminada</h2><p class="msg">Campeón: <b>${esc(standings()[0].name)}</b>. ¡Gracias por jugar!</p>
+    ${DEV?'<p class="msg">Modo dev: esta liga está completa — crea otra de prueba o amplía las jornadas desde Admin → Configuración.</p>':''}</div>`+btnBar(); return;
   }
   const r=roundOf(w);
   const ended=new Date()>=weekEnd(w);
@@ -612,6 +622,15 @@ async function registrar(){
     selType=null; selLevel=0;
     await refresh(); TAB='jornada'; render();
   }catch(e){ $('#aErr').textContent=e.message||'Error al registrar'; }
+}
+async function devStartNow(){
+  if(!L.league.is_admin){ $('#dErr').textContent='Necesitas sesión de admin.'; return; }
+  const d=new Date(); d.setDate(d.getDate()-((d.getDay()+6)%7));   // lunes de esta semana
+  try{
+    const {error}=await sb.rpc('admin_update_league',{p_code:CUR,p_patch:{start:isoDay(d)},p_reason:'modo desarrollador: inicio inmediato'});
+    if(error) throw error;
+    await refresh();
+  }catch(e){ $('#dErr').textContent=e.message; }
 }
 async function devFill(w){
   if(!L.league.is_admin){ $('#dErr').textContent='Necesitas sesión de admin para simular.'; return; }
