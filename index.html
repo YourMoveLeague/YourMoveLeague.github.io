@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Your Move Game Labs">
 <meta name="copyright" content="© 2026 Your Move Game Labs">
-<meta name="description" content="Your Move League — ligas de deporte entre amigos: cada día cuenta, nada está garantizado.">
+<meta name="description" content="Your Move League — ligas de deporte entre amigos.">
 <title>Your Move League</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
   .word .sp{display:inline-block;width:17px;height:4px;background:var(--firma);margin-right:2px;vertical-align:middle;border-radius:2px;}
   .word .sp2{width:9px;opacity:.55;}
   .lg{font-size:9.5px;letter-spacing:6px;color:var(--dim);margin-top:1px;font-weight:600;}
-  .sub{color:var(--dim);font-size:12px;margin-top:4px;}
+  .sub{color:var(--dim);font-size:12px;margin-top:4px;min-height:14px;}
   nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);z-index:20;padding-bottom:env(safe-area-inset-bottom);}
   nav.on{display:flex;}
   nav button{flex:1;background:none;border:none;color:var(--dim);padding:8px 2px 7px;font-size:10.5px;cursor:pointer;font-family:inherit;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px;}
@@ -50,16 +50,18 @@
   .btn{display:inline-flex;align-items:center;gap:6px;background:var(--firma);color:#fff;border:none;border-radius:9px;padding:11px 16px;font-size:14px;font-weight:800;cursor:pointer;margin-top:12px;font-family:inherit;}
   .btn svg{width:16px;height:16px;}
   .btn.sec{background:var(--card2);color:var(--text);border:1px solid var(--line);font-weight:600;}
-  .btn.danger{background:var(--lose);}
   .btn.full{width:100%;justify-content:center;}
   .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
   .msg{color:var(--dim);font-size:13px;line-height:1.5;}
   .err{color:var(--lose);font-size:13px;margin-top:8px;min-height:16px;}
   .ok{color:var(--win);font-size:13px;margin-top:8px;}
   .big{font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:2px;color:var(--firma);}
-  table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  th{color:var(--dim);font-weight:600;text-align:left;padding:6px;border-bottom:1px solid var(--line);font-size:11.5px;}
-  td{padding:8px 6px;border-bottom:1px solid var(--line);}
+  .cd{font-family:'Archivo Black',sans-serif;font-size:24px;color:var(--text);letter-spacing:1px;text-align:center;margin:4px 0;}
+  .cdlbl{text-align:center;color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;}
+  .cdmini{font-size:12px;color:var(--dim);font-weight:600;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{color:var(--dim);font-weight:600;text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);font-size:11px;}
+  td{padding:8px 4px;border-bottom:1px solid var(--line);}
   tr:last-child td{border-bottom:none;}
   .num{text-align:center;}
   .duelbox{background:var(--card2);border-radius:12px;padding:14px;}
@@ -70,9 +72,9 @@
   .bar .r{background:var(--duelB);transition:width .8s ease;}
   .pcts{display:flex;justify-content:space-between;font-weight:800;margin-top:6px;}
   .pill{display:inline-block;font-size:10.5px;border-radius:20px;padding:1px 8px;background:var(--card2);border:1px solid var(--line);color:var(--dim);margin-left:5px;vertical-align:middle;}
-  .chip{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;font-size:9.5px;font-weight:800;color:#fff;margin-left:3px;}
+  .chip{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;font-size:9px;font-weight:800;color:#fff;margin-left:2px;}
   .chip.v{background:var(--win);} .chip.d{background:var(--lose);} .chip.n{background:var(--dim);}
-  .whats{background:#f0f7f1;border:1px solid #cfe5d4;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;margin-top:10px;color:#254433;}
+  .whats{background:#f0f7f1;border:1px solid #cfe5d4;border-radius:10px;padding:12px;font-size:12.5px;white-space:pre-wrap;margin-top:10px;color:#254433;}
   .logi{border-left:2px solid var(--line);padding:5px 10px;margin:6px 0;font-size:12.5px;color:var(--dim);}
   .feeditem{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
   .feeditem:last-child{border-bottom:none;}
@@ -105,7 +107,7 @@
   .intro{display:flex;justify-content:space-between;width:100%;max-width:440px;}
   .court{position:relative;width:100%;max-width:440px;height:200px;background:#1b2d4f;border-radius:12px;margin:12px 0;overflow:hidden;}
   .net{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:2px dashed rgba(255,255,255,.25);}
-  .paddle{position:absolute;width:8px;height:52px;border-radius:4px;top:74px;transition:top .35s ease;}
+  .paddle{position:absolute;width:8px;height:56px;border-radius:4px;top:72px;transition:top .4s ease;}
   .paddle.A{left:10px;background:var(--duelA);}
   .paddle.B{right:10px;background:#7db4e8;}
   .pball{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.5);transition:left .5s linear, top .5s ease;}
@@ -118,7 +120,7 @@
 <header>
   <span class="word"><span class="sp"></span><span class="sp sp2"></span>YOUR MOVE</span>
   <div class="lg">L E A G U E</div>
-  <div class="sub" id="hSub">Cada día cuenta. Nada está garantizado.</div>
+  <div class="sub" id="hSub"></div>
 </header>
 <nav id="nav">
   <button data-t="jornada"></button>
@@ -137,8 +139,8 @@
   <p style="margin-top:8px"><b>Para qué:</b> el funcionamiento de la liga y estadísticas internas agregadas y anónimas. No vendemos ni cedemos datos.</p>
   <p style="margin-top:8px"><b>Dónde:</b> Supabase (servidores en la UE), proveedor técnico.</p>
   <p style="margin-top:8px"><b>Tus derechos:</b> acceso, corrección o borrado escribiendo a soporte@yourmoveleague.com.</p>
-  <p style="margin-top:8px"><b>Reportes:</b> al reportar una actividad guardamos quién reporta solo para impedir duplicados; nunca se muestra.</p>
-  <p style="margin-top:8px"><b>Almacenamiento local:</b> guardamos en tu navegador tu liga y participante para no pedirlos cada vez. Sin cookies de seguimiento ni publicidad.</p>
+  <p style="margin-top:8px"><b>Reportes:</b> guardamos quién reporta solo para impedir duplicados; nunca se muestra.</p>
+  <p style="margin-top:8px"><b>Almacenamiento local:</b> guardamos en tu navegador tu liga y participante. Sin cookies de seguimiento ni publicidad.</p>
   </div>
   <button class="btn sec" onclick="closeModal('priv')">Cerrar</button>
 </div></div>
@@ -160,7 +162,7 @@
 const SB_URL='https://mbnwujxbckvroitzttgi.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ibnd1anhiY2t2cm9pdHp0dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5Mjk1MDIsImV4cCI6MjEwMzUwNTUwMn0.1kf0ADGQhYYMRFOWXHE6fdHlolOo3Fanhka3mjTLMBE';
 const sb=window.supabase.createClient(SB_URL,SB_KEY);
-const VERSION='web v0.3';
+const VERSION='web v0.4';
 const PLANTILLA_DEF=
 `Correr: 30 min / 1h30 / 2h
 Caminar: 10.000 pasos / 20.000 / 30.000
@@ -171,7 +173,7 @@ Clase dirigida: 1 clase / 2 clases / 3 clases
 Equipo o raqueta: 45 min / 2h / torneo
 Esterilla en casa: 45 min / 1h30 / 2h`;
 
-/* ============ ICONOS (SVG de línea, estilo Lucide) ============ */
+/* ============ ICONOS ============ */
 function ic(n,s){
   const P={
     zap:'M13 2 3 14h7l-1 8 11-12h-7l1-8z',
@@ -187,7 +189,10 @@ function ic(n,s){
     x:'M6 6l12 12M18 6 6 18',
     logout:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',
     calendar:'M3 6h18v15H3zM16 3v4M8 3v4M3 11h18',
-    users:'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3.5 20a5.5 5.5 0 0 1 11 0M16 11a3 3 0 1 0 0-6M17 20h4.5a4.5 4.5 0 0 0-3-4.2'
+    users:'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3.5 20a5.5 5.5 0 0 1 11 0M16 11a3 3 0 1 0 0-6M17 20h4.5a4.5 4.5 0 0 0-3-4.2',
+    clock:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 3',
+    play:'M6 4l14 8-14 8z',
+    key:'M15 9a6 6 0 1 0-5.7 7.9L15 21h3v-3h3v-3l-4.1-4.1A6 6 0 0 0 15 9z'
   };
   return `<svg width="${s||16}" height="${s||16}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${P[n]||''}"/></svg>`;
 }
@@ -220,7 +225,12 @@ function roundRobin(names){
 function serieProb(a,b){ if(a+b===0) return .5; const p=a/(a+b); return p*p*(3-2*p); }
 function isoDay(d){ const x=new Date(d); x.setMinutes(x.getMinutes()-x.getTimezoneOffset()); return x.toISOString().slice(0,10); }
 function weekStart(w){ const s=new Date(L.league.config.start+'T00:00:00'); s.setDate(s.getDate()+7*w); return s; }
-function weekIdx(){ const s=new Date(L.league.config.start+'T00:00:00'); return Math.floor((new Date()-s)/(7*24*3600*1000)); }
+function weekEnd(w){ return new Date(weekStart(w).getTime()+7*24*3600*1000); }
+function calWeek(){ const s=new Date(L.league.config.start+'T00:00:00'); return Math.floor((new Date()-s)/(7*24*3600*1000)); }
+function firstUnresolved(){ for(let j=0;j<L.league.config.weeks;j++){ if(!(L.rounds||[]).find(x=>x.number===j+1)) return j; } return L.league.config.weeks; }
+/* jornada activa: la primera sin resolver, sin adelantar al calendario real */
+function activeW(){ const cw=calWeek(); if(cw<0) return -1; return Math.min(firstUnresolved(), Math.min(cw, L.league.config.weeks-1)); }
+function roundOf(j){ return (L.rounds||[]).find(x=>x.number===j+1); }
 function actsOfWeek(pid,w){
   const a=isoDay(weekStart(w)), b=isoDay(new Date(weekStart(w).getTime()+6*24*3600*1000));
   return L.activities.filter(x=>x.player_id===pid&&x.day>=a&&x.day<=b).sort((x,y)=>x.day<y.day?-1:1);
@@ -245,7 +255,7 @@ function parseTypes(){
     .map(l=>l.trim()).filter(l=>l&&!l.startsWith('(')&&l.includes(':'))
     .map(l=>{ const i=l.indexOf(':'); return {name:l.slice(0,i).trim(), hint:l.slice(i+1).trim()}; });
 }
-function formChips(name){
+function formChips(name,n){
   const res=[];
   (L.rounds||[]).forEach(r=>{
     (r.data.duels||[]).forEach(d=>{
@@ -253,7 +263,7 @@ function formChips(name){
       res.push(d.nulo?'n':(d.winner===name?'v':'d'));
     });
   });
-  return res.slice(-3).map(x=>`<span class="chip ${x}">${x==='v'?'V':(x==='d'?'D':'–')}</span>`).join('');
+  return res.slice(-(n||5)).map(x=>`<span class="chip ${x}">${x==='v'?'V':(x==='d'?'D':'–')}</span>`).join('');
 }
 function standings(){
   const st={};
@@ -274,10 +284,33 @@ function standings(){
   return Object.values(st).sort((a,b)=>b.pts-a.pts||b.dias-a.dias||b.moves-a.moves||a.name.localeCompare(b.name));
 }
 function clasifHTML(){
-  return `<table><tr><th>#</th><th>Nombre</th><th class="num">Pts</th><th class="num">Días</th><th>Forma</th></tr>${
-    standings().map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}${catBadge(byName(s.name))}</td><td class="num"><b>${s.pts}</b></td><td class="num">${s.dias}</td><td>${formChips(s.name)}</td></tr>`).join('')}
+  return `<table><tr><th>#</th><th>Nombre</th><th class="num">Pts</th><th class="num">Días</th><th class="num">Moves</th><th>Forma</th></tr>${
+    standings().map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}${catBadge(byName(s.name))}</td><td class="num"><b>${s.pts}</b></td><td class="num">${s.dias}</td><td class="num">${s.moves}</td><td>${formChips(s.name,5)}</td></tr>`).join('')}
   </table>`;
 }
+
+/* ============ CUENTA ATRÁS ============ */
+function fmtCd(ms){
+  if(ms<=0) return null;
+  const s=Math.floor(ms/1000), d=Math.floor(s/86400), h=Math.floor((s%86400)/3600), m=Math.floor((s%3600)/60), sec=s%60;
+  if(d>=1) return `${d}d ${h}h ${String(m).padStart(2,'0')}m`;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+setInterval(()=>{
+  if(!L) return;
+  const cj=document.getElementById('cdJ');
+  if(cj){
+    const w=activeW();
+    const t=fmtCd(weekEnd(w)-new Date());
+    if(t) cj.textContent=t;
+    else { render(); return; }   // llegó a 0 → repintar (aparece el botón)
+  }
+  const cd=document.getElementById('cdD');
+  if(cd){
+    const mid=new Date(); mid.setHours(24,0,0,0);
+    cd.textContent=fmtCd(mid-new Date())||'00:00:00';
+  }
+},1000);
 
 /* ============ NAV / MODALES ============ */
 function buildNav(){
@@ -299,23 +332,23 @@ function copyTxt(t,msg){
 /* ============ HOME / AUTH ============ */
 function vHome(){
   $('#nav').classList.remove('on');
-  $('#hSub').textContent='Cada día cuenta. Nada está garantizado.';
+  $('#hSub').textContent='';
   const adminBox = USER
-    ? `<p class="msg">Sesión de admin: <b>${esc(USER.email)}</b></p>
+    ? `<p class="msg">Sesión: <b>${esc(USER.email)}</b></p>
        <div id="mls" class="row" style="margin-top:8px"><span class="msg">Cargando tus ligas…</span></div>
        <div class="row"><button class="btn" onclick="vCreate()">${ic('plus')} Crear liga</button>
        <button class="btn sec" onclick="logoutAdmin()">${ic('logout')} Salir</button></div>`
     : `<label>Correo</label><input id="aEmail" type="email" autocomplete="email">
        <label>Contraseña</label><input id="aPass" type="password" autocomplete="current-password">
-       <div class="row"><button class="btn" onclick="loginAdmin()">Entrar</button>
-       <button class="btn sec" onclick="signupAdmin()">Crear cuenta</button></div>
+       <div class="row"><button class="btn" onclick="loginAdmin()">Iniciar sesión</button>
+       <button class="btn sec" onclick="signupAdmin()">Registrarme</button></div>
        <div class="err" id="aErr"></div>`;
   $('#main').innerHTML=`
   <div class="card"><h2>${ic('users')} Entrar en mi liga</h2>
     <label>Código de la liga</label><input id="jCode" maxlength="10" style="text-transform:uppercase" placeholder="p. ej. K7KM2X">
     <button class="btn" onclick="openLeague()">Entrar</button><div class="err" id="jErr"></div>
   </div>
-  <div class="card"><h2>${ic('settings')} Zona de administradores</h2>${adminBox}</div>`;
+  <div class="card"><h2>${ic('key')} Inicia sesión o regístrate</h2>${adminBox}</div>`;
   if(USER) loadMyLeagues();
 }
 async function loadMyLeagues(){
@@ -383,22 +416,27 @@ async function createLeague(){
     const {data,error}=await sb.rpc('create_league',{p_name:$('#cName').value,p_email:USER?USER.email:null,
       p_config:cfg,p_calendar:roundRobin(players),p_players:roster});
     if(error) throw error;
-    vCreated(data.code,$('#cName').value,cfg);
+    vCreated(data.code,$('#cName').value,cfg,roster);
   }catch(e){ $('#cErr').textContent=e.message||'Error al crear la liga'; }
 }
-function vCreated(code,name,cfg){
+function whatsText(code,name,cfg,roster){
   const url=location.origin+location.pathname;
-  const whats=`🏆 ${name.toUpperCase()} — YOUR MOVE LEAGUE\n`+
+  const lista=roster.map(r=>r.name+(r.cat==='amateur'?' (Amateur)':(r.cat==='elite'?' (Élite)':''))).join(', ');
+  return `🏆 ${name.toUpperCase()} — YOUR MOVE LEAGUE\n`+
     (cfg.prize?`🎁 ${cfg.prize}\n`:'')+
+    `\n👥 ${lista}\n`+
     `\n📲 Registra tu actividad y vigila tu duelo:\n${url}\n🔑 Código: ${code}\n`+
     `\n📸 Foto instantánea al grupo + registra tu día en la web.\n`+
-    `🥉 1 Move · 🥈 2 · 🥇 3 (por coste de agenda)\n🎯 Domingo: se resuelve la jornada. Más deporte = más opciones. Garantizado, nada.`;
+    `\n📏 NIVELES (🥉1 Move · 🥈2 · 🥇3):\n${cfg.levels}\n`+
+    `\n🎯 Domingo: se resuelve la jornada. Más deporte = más opciones. Garantizado, nada.`;
+}
+function vCreated(code,name,cfg,roster){
   $('#main').innerHTML=`
   <div class="card"><h2>${ic('check')} ¡Liga creada!</h2>
     <label>Código para los participantes</label><div class="big">${esc(code)}</div>
-    <p class="msg" style="margin-top:6px">Tú ya eres el admin con tu cuenta — entra en la liga y verás la pestaña Admin.</p>
+    <p class="msg" style="margin-top:6px">Lo tendrás siempre en la pestaña Admin y en «tus ligas».</p>
     <label style="margin-top:12px">Texto para la descripción del grupo de WhatsApp</label>
-    <div class="whats" id="wTxt">${esc(whats)}</div>
+    <div class="whats" id="wTxt">${esc(whatsText(code,name,cfg,roster))}</div>
     <div class="row"><button class="btn sec" onclick="copyTxt(document.getElementById('wTxt').textContent,'Texto copiado')">${ic('copy')} Copiar</button>
     <button class="btn" onclick="goLeague('${code}')">Ir a la liga</button></div>
   </div>`;
@@ -425,8 +463,8 @@ function render(){
   if(!L){ vHome(); return; }
   $('#nav').classList.add('on');
   $('#tabAdmin').style.display=L.league.is_admin?'flex':'none';
-  const w=weekIdx(), cfg=L.league.config;
-  $('#hSub').textContent=`${L.league.name} · ${w<0?'empieza '+cfg.start:(w>=cfg.weeks?'liga terminada':'jornada '+(w+1)+' de '+cfg.weeks)}`;
+  const w=activeW(), cfg=L.league.config;
+  $('#hSub').textContent=`${L.league.name} · ${calWeek()<0?'empieza '+cfg.start:(w>=cfg.weeks||firstUnresolved()>=cfg.weeks?'liga terminada':'jornada '+(w+1)+' de '+cfg.weeks)}`;
   document.querySelectorAll('#nav button').forEach(b=>{
     const t=NAV[[...b.parentNode.children].indexOf(b)][0];
     b.classList.toggle('on',t===TAB);
@@ -435,56 +473,88 @@ function render(){
 }
 
 /* ---- JORNADA ---- */
+function duelLine(a,b,w,r){
+  const pa=byName(a), pb=byName(b);
+  const ma=pa?movesOfWeek(pa.id,w):'·', mb=pb?movesOfWeek(pb.id,w):'·';
+  let mid=`${ma} — ${mb}`;
+  if(r){ const d=(r.data.duels||[]).find(x=>x.a===a&&x.b===b);
+    if(d) mid=d.nulo?'nulo':`<span style="color:var(--win);font-weight:800">${esc(d.winner)}</span> ${d.score}`; }
+  return `<div class="feeditem"><span class="fi"><b>${esc(a)}</b></span><span class="msg" style="white-space:nowrap">${mid}</span><span class="fi" style="text-align:right"><b>${esc(b)}</b></span></div>`;
+}
 function tJornada(){
-  const s=ses(), w=weekIdx(), cfg=L.league.config;
+  const s=ses(), cfg=L.league.config, cw=calWeek(), w=activeW();
   if(!s){ pickPlayer('jornada'); return; }
-  const hoy=new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
-  let duelHtml='';
-  if(w<0) duelHtml=`<p class="msg">La liga empieza el ${cfg.start}. Ve calentando.</p>`;
-  else if(w>=cfg.weeks) duelHtml=`<p class="msg">La liga ha terminado. ¡Gracias por jugar!</p>`;
-  else{
-    const me=L.players.find(p=>p.id===s.playerId);
-    const pair=pairsFor(w).find(([a,b])=>a===me.name||b===me.name);
-    if(!pair) duelHtml=`<p class="msg">Esta semana descansas.</p>`;
-    else{
-      const rivalName=pair[0]===me.name?pair[1]:pair[0];
-      const rival=byName(rivalName);
-      const ma=movesOfWeek(me.id,w);
-      const mb=rival?movesOfWeek(rival.id,w):Math.round((L.players.map(p=>movesOfWeek(p.id,w)).sort((a,b)=>a-b))[Math.floor(L.players.length/2)]||0);
-      const meFirst=pair[0]===me.name;
-      const pMe=Math.round(serieProb(ma,mb)*100);
-      const r=(L.rounds||[]).find(x=>x.number===w+1);
-      let resHtml='';
-      if(r){ const d=(r.data.duels||[]).find(x=>(x.a===pair[0]&&x.b===pair[1])); if(d) resHtml=`<p class="ok">Jornada resuelta: ${d.nulo?'duelo nulo':`ganó <b>${esc(d.winner)}</b> ${d.score}`}.</p>`; }
-      duelHtml=`<div class="duelbox">
-        <div class="duelnames"><span style="color:var(--duelA)">${esc(me.name)}</span><span style="color:var(--duelB)">${esc(rivalName)}</span></div>
-        <div class="duelmoves"><span>${ma} Moves</span><span>${mb} Moves</span></div>
-        <div class="bar"><div class="l" style="width:${pMe}%"></div><div class="r" style="width:${100-pMe}%"></div></div>
-        <div class="pcts"><span style="color:var(--duelA)">${pMe} %</span><span style="color:var(--duelB)">${100-pMe} %</span></div>
-        <p class="msg" style="margin-top:8px">Duelo vivo hasta el domingo. ${pMe>=50?'No te relajes.':'Aún hay partido.'}</p>
-        ${resHtml}
-      </div>`;
-    }
+  if(cw<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}. Ve calentando.</p></div>`+btnBar(); return; }
+  if(w>=cfg.weeks||firstUnresolved()>=cfg.weeks){
+    $('#main').innerHTML=`<div class="card"><h2>${ic('trophy')} Liga terminada</h2><p class="msg">Campeón: <b>${esc(standings()[0].name)}</b>. ¡Gracias por jugar!</p></div>`+btnBar(); return;
   }
+  const r=roundOf(w);
+  const ended=new Date()>=weekEnd(w);
+  const me=L.players.find(p=>p.id===s.playerId);
+  const pair=pairsFor(w).find(([a,b])=>a===me.name||b===me.name);
+  // cuenta atrás / zona de resolución
+  let cdHtml='';
+  if(r){ cdHtml=`<p class="ok">Jornada ${w+1} resuelta.</p>
+    <button class="btn sec" onclick="replay(${w})">${ic('play')} Repetir la animación</button>`; }
+  else if(!ended){ cdHtml=`<div class="cdlbl">Cierre de la jornada ${w+1}</div><div class="cd" id="cdJ">…</div>`; }
+  else if(L.league.is_admin){ cdHtml=`<p class="msg">La jornada ${w+1} ha terminado. ¿Resolvemos?</p>
+    <div class="row">
+      ${pair?`<button class="btn" onclick="doResolve(${w+1},'mine')">${ic('play')} Ver mi duelo</button>`:''}
+      <button class="btn" onclick="doResolve(${w+1},'all')">${ic('play')} Ver todos</button>
+      <button class="btn sec" onclick="doResolve(${w+1},'skip')">Saltar a resultados</button>
+    </div><div class="err" id="rErr2"></div>`; }
+  else cdHtml=`<p class="msg">Jornada ${w+1} finalizada · pendiente del sorteo del admin.</p>`;
+  // mi duelo
+  let duelHtml='<p class="msg">Esta semana descansas.</p>';
+  if(pair){
+    const rivalName=pair[0]===me.name?pair[1]:pair[0];
+    const rival=byName(rivalName);
+    const ma=movesOfWeek(me.id,w);
+    const mb=rival?movesOfWeek(rival.id,w):Math.round((L.players.map(p=>movesOfWeek(p.id,w)).sort((a,b)=>a-b))[Math.floor(L.players.length/2)]||0);
+    const pMe=Math.round(serieProb(ma,mb)*100);
+    let resHtml='';
+    if(r){ const d=(r.data.duels||[]).find(x=>x.a===pair[0]&&x.b===pair[1]); if(d) resHtml=`<p class="${d.winner===me.name?'ok':'err'}" style="margin-top:8px">${d.nulo?'Duelo nulo.':(d.winner===me.name?`¡Victoria ${d.score}!`:`Derrota ${d.score} — la próxima cae.`)}</p>`; }
+    duelHtml=`<div class="duelbox">
+      <div class="duelnames"><span style="color:var(--duelA)">${esc(me.name)}</span><span style="color:var(--duelB)">${esc(rivalName)}</span></div>
+      <div class="duelmoves"><span>${ma} Moves</span><span>${mb} Moves</span></div>
+      <div class="bar"><div class="l" style="width:${pMe}%"></div><div class="r" style="width:${100-pMe}%"></div></div>
+      <div class="pcts"><span style="color:var(--duelA)">${pMe} %</span><span style="color:var(--duelB)">${100-pMe} %</span></div>
+      ${resHtml}
+    </div>`;
+  }
+  // los demás duelos
+  const others=pairsFor(w).filter(([a,b])=>!pair||(a!==me.name&&b!==me.name));
+  const prevR=w>0?roundOf(w-1):null;
   $('#main').innerHTML=`
-  <div class="card"><h2>${ic('zap')} ${hoy.charAt(0).toUpperCase()+hoy.slice(1)} · jornada ${Math.max(1,Math.min(w+1,cfg.weeks))}</h2>${duelHtml}</div>
-  <div class="card"><h2>${ic('trophy')} Clasificación</h2>${clasifHTML()}
-    <p class="msg" style="margin-top:6px">Victoria 3 pts · derrota con 4+ días 1 pt · desempate por regularidad.</p></div>`+btnBar();
+  <div class="card">${cdHtml}</div>
+  <div class="card"><h2>${ic('zap')} Mi duelo · jornada ${w+1}</h2>${duelHtml}</div>
+  ${others.length?`<div class="card"><h2>${ic('users')} Los demás duelos</h2>${others.map(([a,b])=>duelLine(a,b,w,r)).join('')}</div>`:''}
+  ${prevR?`<div class="card"><h2>${ic('play')} Jornada anterior</h2>
+    <button class="btn sec" onclick="replay(${w-1})">Repetir la animación de la J${w}</button></div>`:''}
+  `+btnBar();
+}
+function replay(w){
+  const r=roundOf(w); if(!r) return;
+  playPong(w+1,r.data.duels,null);
 }
 
-/* ---- MOVES (registrar) ---- */
+/* ---- MOVES ---- */
 function tMoves(){
-  const s=ses(), w=weekIdx(), cfg=L.league.config;
+  const s=ses(), cfg=L.league.config, cw=calWeek(), w=activeW();
   if(!s){ pickPlayer('moves'); return; }
-  if(w<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}.</p></div>`+btnBar(); return; }
+  if(cw<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}.</p></div>`+btnBar(); return; }
   const me=L.players.find(p=>p.id===s.playerId);
   const myActs=actsOfWeek(s.playerId,w);
   const today=isoDay(new Date());
+  const wkStart=isoDay(weekStart(w));
+  const wkLast=isoDay(new Date(weekStart(w).getTime()+6*24*3600*1000));
+  const maxDay=today<wkLast?today:wkLast;
   const types=parseTypes();
   const hint=selType?(types.find(t=>t.name===selType)||{}).hint:null;
   $('#main').innerHTML=`
   <div class="card"><h2>${ic('activity')} Registrar actividad — ${esc(me?me.name:'')}</h2>
-    <label>Fecha</label><input type="date" id="aDay" value="${today}" max="${today}" min="${isoDay(weekStart(Math.max(w,0)))}">
+    <p class="cdmini">${ic('clock',12)} Hoy se puede registrar hasta las 24:00 — quedan <span id="cdD">…</span></p>
+    <label>Fecha (jornada ${w+1})</label><input type="date" id="aDay" value="${maxDay}" max="${maxDay}" min="${wkStart}">
     <label>Tipo de actividad</label>
     <div class="typegrid">${types.map(t=>`<button class="typebtn ${selType===t.name?'on':''}" onclick="setType('${esc(t.name)}')">${esc(t.name)}</button>`).join('')}</div>
     ${hint?`<p class="msg" style="margin-top:6px">Niveles: ${esc(hint)}</p>`:''}
@@ -492,8 +562,8 @@ function tMoves(){
     <div class="medgrid">
       ${[1,2,3].map(l=>`<button class="medbtn ${selLevel===l?'on':''}" onclick="setLevel(${l})">${medalSVG(l,24)}${['Bronce · 1 Move','Plata · 2 Moves','Oro · 3 Moves'][l-1]}</button>`).join('')}
     </div>
+    ${cfg.quedada?`<label style="margin-top:10px"><input type="checkbox" id="aQuedada" style="width:auto"> Fue la <b>actividad conjunta</b> de la semana (+1 Move)</label>`:''}
     <label>Nota (opcional, visible para todos)</label><input id="aWhat" placeholder="p. ej. 6k por el río">
-    ${cfg.quedada?`<label style="margin-top:8px"><input type="checkbox" id="aQuedada" style="width:auto"> Actividad conjunta (+1 Move)</label>`:''}
     <button class="btn full" onclick="registrar()">Registrar actividad</button>
     <div class="err" id="aErr"></div>
   </div>
@@ -548,13 +618,13 @@ function confirmPick(id,backTab){
 
 /* ---- LIGA ---- */
 function tLiga(){
-  const cfg=L.league.config, w=weekIdx(), s=ses();
+  const cfg=L.league.config, w=activeW(), s=ses();
   const nP=L.players.length, umbral=Math.ceil(nP*0.3);
-  let h=`<div class="card"><h2>${ic('trophy')} Clasificación</h2>${clasifHTML()}</div>`;
-  // calendario
+  let h=`<div class="card"><h2>${ic('trophy')} Clasificación</h2>${clasifHTML()}
+    <p class="msg" style="margin-top:6px">Victoria 3 pts · derrota con 4+ días 1 pt · desempate por regularidad.</p></div>`;
   h+=`<div class="card"><h2>${ic('calendar')} Calendario</h2>`;
   for(let j=0;j<cfg.weeks;j++){
-    const r=(L.rounds||[]).find(x=>x.number===j+1);
+    const r=roundOf(j);
     const hidden=cfg.oculto&&!r&&j!==Math.max(w,0);
     h+=`<p style="margin:8px 0 4px;font-weight:700;font-size:12px;color:var(--dim)">JORNADA ${j+1} ${r?'· resuelta':(j===w?'· en curso':'')} ${hidden?'· oculta':''}</p>`;
     if(hidden) continue;
@@ -565,7 +635,6 @@ function tLiga(){
     });
   }
   h+=`</div>`;
-  // track
   const feed=[...L.activities].sort((a,b)=>a.day<b.day?1:-1).slice(0,25);
   h+=`<div class="card"><h2>${ic('activity')} Track de la liga</h2>${feed.length?feed.map(a=>{
     const p=L.players.find(x=>x.id===a.player_id);
@@ -579,11 +648,10 @@ function tLiga(){
     </div>`;
   }).join(''):'<p class="msg">Nada aún. Your move.</p>'}
   <p class="msg" style="margin-top:8px">El reporte es anónimo (1 por persona). Con ${umbral}+ reportes la actividad queda en disputa y decide el grupo/admin.</p></div>`;
-  // normas + registro (plegados)
   h+=`<details><summary>Normas de la liga</summary><div class="card">
     ${cfg.prize?`<p class="msg"><b>Premio:</b> ${esc(cfg.prize)}</p>`:''}
     <p class="msg" style="margin-top:6px;white-space:pre-wrap">${esc(cfg.levels||PLANTILLA_DEF)}</p>
-    <p class="msg" style="margin-top:6px">Máx. ${cfg.maxDays} días/semana · ${cfg.bonusDay>0?`bonus +1 Move al llegar al día ${cfg.bonusDay}`:'sin bonus de regularidad'} · ${cfg.quedada?'actividad conjunta +1 Move':'sin actividad conjunta'} · calendario ${cfg.oculto?'con rival oculto':'público'} · victoria 3 pts · derrota con 4+ días 1 pt.</p></div></details>`;
+    <p class="msg" style="margin-top:6px">Máx. ${cfg.maxDays} días/semana · ${cfg.bonusDay>0?`bonus +1 Move al llegar al día ${cfg.bonusDay}`:'sin bonus de regularidad'} · ${cfg.quedada?'actividad conjunta +1 Move':'sin actividad conjunta'} · calendario ${cfg.oculto?'con rival oculto':'público'}.</p></div></details>`;
   const log=(L.league.log||[]).slice().reverse();
   h+=`<details><summary>Registro del administrador</summary><div class="card">${log.length?log.map(x=>
     `<div class="logi">${(x.at||'').slice(0,16).replace('T',' ')} — ${esc(x.action)}${x.reason?` · <i>${esc(x.reason)}</i>`:''}</div>`).join(''):'<p class="msg">Sin cambios.</p>'}</div></details>`;
@@ -601,25 +669,32 @@ async function reportAct(id){
 
 /* ---- ADMIN ---- */
 function tAdmin(){
-  const cfg=L.league.config, w=weekIdx();
-  const unresolved=[]; for(let j=0;j<cfg.weeks;j++){ if(!(L.rounds||[]).find(x=>x.number===j+1)) unresolved.push(j+1); }
+  const cfg=L.league.config, w=activeW();
+  const unresolved=[]; for(let j=0;j<cfg.weeks;j++){ if(!roundOf(j)) unresolved.push(j+1); }
   const weeksOpts=[]; for(let j=0;j<cfg.weeks;j++) weeksOpts.push(j);
   $('#main').innerHTML=`
+  <div class="card"><h2>${ic('key')} Código de la liga</h2>
+    <div class="big">${esc(L.league.code)}</div>
+    <button class="btn sec" onclick="copyTxt('${esc(L.league.code)}','Código copiado')">${ic('copy')} Copiar código</button>
+  </div>
   <div class="card"><h2>${ic('zap')} Resolver jornada</h2>
-    <p class="msg">En curso: ${w>=0&&w<cfg.weeks?w+1:'—'}. Resolver es definitivo e irreversible.</p>
+    <p class="msg">Activa: ${w>=0&&w<cfg.weeks?w+1:'—'}. Resolver es definitivo e irreversible.</p>
     <label>Jornada</label><select id="rJor">${unresolved.map(j=>`<option ${j===w+1?'selected':''}>${j}</option>`).join('')}</select>
-    <button class="btn" onclick="resolverJornada()">Resolver con el sorteo en directo</button>
+    <div class="row">
+      <button class="btn" onclick="doResolve(parseInt(document.getElementById('rJor').value),'all')">${ic('play')} Ver todos</button>
+      <button class="btn sec" onclick="doResolve(parseInt(document.getElementById('rJor').value),'skip')">Saltar animación</button>
+    </div>
     <div class="err" id="rErr"></div>
   </div>
   <div class="card"><h2>${ic('users')} Entrada rápida de Moves (simulación / migración)</h2>
-    <p class="msg">Escribe la semana entera de un participante de golpe. Sobrescribe lo que hubiera esa semana y queda en el registro público.</p>
+    <p class="msg">Semana entera de un participante de golpe. Sobrescribe esa semana y queda en el registro público.</p>
     <label>Participante</label><select id="qPlayer">${L.players.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select>
     <label>Jornada</label><select id="qWeek">${weeksOpts.map(j=>`<option value="${j}" ${j===Math.max(w,0)?'selected':''}>J${j+1} (semana del ${isoDay(weekStart(j))})</option>`).join('')}</select>
     <div class="row">
-      <div style="flex:1"><label>🥉 Bronces</label><input type="number" id="qB" value="0" min="0" max="7"></div>
-      <div style="flex:1"><label>🥈 Platas</label><input type="number" id="qS" value="0" min="0" max="7"></div>
-      <div style="flex:1"><label>🥇 Oros</label><input type="number" id="qG" value="0" min="0" max="7"></div>
-      <div style="flex:1"><label>✚ Quedadas</label><input type="number" id="qQ" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>Bronces</label><input type="number" id="qB" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>Platas</label><input type="number" id="qS" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>Oros</label><input type="number" id="qG" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>Conjuntas</label><input type="number" id="qQ" value="0" min="0" max="7"></div>
     </div>
     <button class="btn sec" onclick="quickWeek()">Aplicar semana</button><div class="err" id="qErr"></div>
   </div>
@@ -676,8 +751,8 @@ async function doAdjust(){
     await refresh();
   }catch(e){ $('#jErr').textContent=e.message; }
 }
-async function resolverJornada(){
-  const jNum=parseInt($('#rJor').value), w=jNum-1;
+async function doResolve(jNum,mode){
+  const w=jNum-1;
   if(!confirm(`¿Resolver la jornada ${jNum}? El sorteo es definitivo.`)) return;
   const moves={}, days={};
   L.players.forEach(p=>{ moves[p.name]=movesOfWeek(p.id,w); days[p.name]=daysOfWeek(p.id,w); });
@@ -696,13 +771,20 @@ async function resolverJornada(){
   try{
     const {error}=await sb.rpc('save_round',{p_code:CUR,p_admin_code:null,p_number:jNum,p_data:{duels,moves,days,version:VERSION}});
     if(error) throw error;
-    await playPong(jNum,duels);
+    if(mode!=='skip'){
+      let show=duels;
+      if(mode==='mine'){
+        const s=ses(); const me=s?L.players.find(p=>p.id===s.playerId):null;
+        if(me) show=duels.filter(d=>d.a===me.name||d.b===me.name);
+      }
+      await playPong(jNum,show,null);
+    }
     await refresh();
-  }catch(e){ $('#rErr').textContent=e.message; }
+  }catch(e){ const el=$('#rErr')||$('#rErr2'); if(el) el.textContent=e.message; else alert(e.message); }
 }
 
-/* ---- PONG (sin autogoles) ---- */
-async function playPong(jNum,duels){
+/* ---- PONG (palas casi estáticas, la bola rebota) ---- */
+async function playPong(jNum,duels,_){
   const ov=$('#ov'); let skip=false;
   const sleep=ms=>new Promise(r=>setTimeout(r,skip?30:ms));
   ov.classList.add('show');
@@ -727,34 +809,41 @@ async function playPong(jNum,duels){
     const ball=$('#ball'), padA=$('#padA'), padB=$('#padB');
     const court=$('#court'), W=court.clientWidth||440;
     const LX=26, RX=W-42, MIDX=(W-16)/2;
+    const rndPad=()=>Math.random()*144;               // posición aleatoria de pala (0-144)
     let sc={A:0,B:0};
     for(const r of d.draws){
-      const rally=2+Math.floor(Math.random()*4);      // 2-5 golpes limpios
+      const rally=2+Math.floor(Math.random()*4);
       let side=Math.random()<.5?'A':'B';
       ball.style.transition='none'; ball.style.left=MIDX+'px'; ball.style.top='92px';
+      padA.style.top=rndPad()+'px'; padB.style.top=rndPad()+'px';
       await sleep(320);
       ball.style.transition='left .5s linear, top .5s ease';
+      // peloteo: las DOS palas se mueven sin parar; la que golpea siempre llega a la bola
       for(let k=0;k<rally;k++){
         const y=20+Math.random()*150;
         ball.style.left=(side==='A'?LX:RX)+'px'; ball.style.top=y+'px';
-        (side==='A'?padA:padB).style.top=Math.max(0,Math.min(148,y-22))+'px';
+        (side==='A'?padA:padB).style.top=Math.max(0,Math.min(144,y-22))+'px'; // esta llega al golpe
+        (side==='A'?padB:padA).style.top=rndPad()+'px';                        // la otra deambula
         side=side==='A'?'B':'A';
         await sleep(520);
       }
-      // punto para r: la bola sale SIEMPRE desde el campo del ganador…
+      // el punto: último golpe desde el campo del ganador…
       const loser=r==='A'?'B':'A';
       const yHit=20+Math.random()*150;
-      ball.style.left=(r==='A'?LX:RX)+'px'; ball.style.top=yHit+'px';        // golpe del ganador
-      (r==='A'?padA:padB).style.top=Math.max(0,Math.min(148,yHit-22))+'px';
+      ball.style.left=(r==='A'?LX:RX)+'px'; ball.style.top=yHit+'px';
+      (r==='A'?padA:padB).style.top=Math.max(0,Math.min(144,yHit-22))+'px';
+      (loser==='A'?padA:padB).style.top=rndPad()+'px';
       await sleep(520);
-      const yMiss=20+Math.random()*150;
-      (loser==='A'?padA:padB).style.top=(yMiss>95?10:135)+'px';               // el perdedor va al lado equivocado
-      ball.style.left=(loser==='A'?-30:W+14)+'px'; ball.style.top=yMiss+'px'; // …y cruza la pista entera
+      // …y cruza la pista entrando LEJOS de donde esté la pala del perdedor
+      const lp=parseFloat((loser==='A'?padA:padB).style.top)||72;
+      const yMiss=lp>85? 12+Math.random()*35 : 150+Math.random()*35;   // al hueco contrario
+      (loser==='A'?padA:padB).style.top=(lp>85? 120+Math.random()*24 : Math.random()*24)+'px'; // reacciona tarde y corto
+      ball.style.left=(loser==='A'?-30:W+14)+'px'; ball.style.top=yMiss+'px';
       sc[r]++; await sleep(560);
       $('#pscore').textContent=sc.A+' – '+sc.B;
       await sleep(650);
     }
-    $('#pres').innerHTML=`🏆 <span class="w">${esc(d.winner)}</span> gana ${d.score}`;
+    $('#pres').innerHTML=`<span class="w">${esc(d.winner)}</span> gana ${d.score}`;
     await sleep(2400);
   }
   ov.classList.remove('show');
