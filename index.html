@@ -56,9 +56,10 @@
   .err{color:var(--lose);font-size:13px;margin-top:8px;min-height:16px;}
   .ok{color:var(--win);font-size:13px;margin-top:8px;}
   .big{font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:2px;color:var(--firma);}
-  .cd{font-family:'Archivo Black',sans-serif;font-size:24px;color:var(--text);letter-spacing:1px;text-align:center;margin:4px 0;}
+  .cd{font-family:'Archivo Black',sans-serif;font-size:36px;color:var(--firma);letter-spacing:1px;text-align:center;margin:2px 0;}
   .cdlbl{text-align:center;color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;}
-  .cdmini{font-size:12px;color:var(--dim);font-weight:600;}
+  .stickcard{position:sticky;top:8px;z-index:15;box-shadow:0 3px 12px rgba(27,45,79,.12);}
+  @media(min-width:720px){ .stickcard{top:58px;} }
   table{width:100%;border-collapse:collapse;font-size:13px;}
   th{color:var(--dim);font-weight:600;text-align:left;padding:6px 4px;border-bottom:1px solid var(--line);font-size:11px;}
   td{padding:8px 4px;border-bottom:1px solid var(--line);}
@@ -162,7 +163,9 @@
 const SB_URL='https://mbnwujxbckvroitzttgi.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ibnd1anhiY2t2cm9pdHp0dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5Mjk1MDIsImV4cCI6MjEwMzUwNTUwMn0.1kf0ADGQhYYMRFOWXHE6fdHlolOo3Fanhka3mjTLMBE';
 const sb=window.supabase.createClient(SB_URL,SB_KEY);
-const VERSION='web v0.4';
+const VERSION='web v0.5-dev';
+const DEV=true;   // ⚠️ Versión de desarrollador. Para la versión con dominio: poner en false.
+let FORCED=-1;    // jornada con cierre forzado (solo DEV, no persiste)
 const PLANTILLA_DEF=
 `Correr: 30 min / 1h30 / 2h
 Caminar: 10.000 pasos / 20.000 / 30.000
@@ -235,13 +238,17 @@ function actsOfWeek(pid,w){
   const a=isoDay(weekStart(w)), b=isoDay(new Date(weekStart(w).getTime()+6*24*3600*1000));
   return L.activities.filter(x=>x.player_id===pid&&x.day>=a&&x.day<=b).sort((x,y)=>x.day<y.day?-1:1);
 }
+function isQOnly(a){ return a.activity==='[conjunta]'; }   // asistencia a la quedada sin entreno: +1 Move, no cuenta como día
 function movesOfWeek(pid,w){
-  const cfg=L.league.config, acts=actsOfWeek(pid,w).slice(0,cfg.maxDays||7);
-  let m=acts.reduce((s,x)=>s+x.level+(x.quedada?1:0)+(x.adj||0),0);
+  const cfg=L.league.config, all=actsOfWeek(pid,w);
+  const qonly=all.filter(isQOnly).length;
+  const acts=all.filter(a=>!isQOnly(a)).slice(0,cfg.maxDays||7);
+  let m=acts.reduce((s,x)=>s+x.level+(x.quedada?1:0)+(x.adj||0),0)+qonly;
   if(cfg.bonusDay>0&&acts.length>=cfg.bonusDay) m+=1;
   return Math.max(0,m);
 }
-function daysOfWeek(pid,w){ return Math.min(actsOfWeek(pid,w).length, L.league.config.maxDays||7); }
+function daysOfWeek(pid,w){ return Math.min(actsOfWeek(pid,w).filter(a=>!isQOnly(a)).length, L.league.config.maxDays||7); }
+function quedadaUsed(pid,w){ return actsOfWeek(pid,w).some(a=>a.quedada||isQOnly(a)); }
 function pairsFor(w){ const c=L.league.calendar; return c.length?c[w%c.length]:[]; }
 function byName(n){ return L.players.find(p=>p.name===n)||null; }
 function catBadge(p){
@@ -493,17 +500,26 @@ function tJornada(){
   const me=L.players.find(p=>p.id===s.playerId);
   const pair=pairsFor(w).find(([a,b])=>a===me.name||b===me.name);
   // cuenta atrás / zona de resolución
-  let cdHtml='';
+  const endedF=ended||FORCED===w;
+  let cdHtml='', stick='';
   if(r){ cdHtml=`<p class="ok">Jornada ${w+1} resuelta.</p>
     <button class="btn sec" onclick="replay(${w})">${ic('play')} Repetir la animación</button>`; }
-  else if(!ended){ cdHtml=`<div class="cdlbl">Cierre de la jornada ${w+1}</div><div class="cd" id="cdJ">…</div>`; }
+  else if(!endedF){ stick=' stickcard'; cdHtml=`<div class="cdlbl">Cierre de la jornada ${w+1}</div><div class="cd" id="cdJ">…</div>`; }
   else if(L.league.is_admin){ cdHtml=`<p class="msg">La jornada ${w+1} ha terminado. ¿Resolvemos?</p>
     <div class="row">
-      ${pair?`<button class="btn" onclick="doResolve(${w+1},'mine')">${ic('play')} Ver mi duelo</button>`:''}
-      <button class="btn" onclick="doResolve(${w+1},'all')">${ic('play')} Ver todos</button>
-      <button class="btn sec" onclick="doResolve(${w+1},'skip')">Saltar a resultados</button>
+      <button class="btn" onclick="doResolve(${w+1},'all')">${ic('play')} Simular jornada</button>
+      ${pair?`<button class="btn" onclick="doResolve(${w+1},'mine')">${ic('play')} Simular mi enfrentamiento</button>`:''}
+      <button class="btn sec" onclick="doResolve(${w+1},'skip')">Resultados</button>
     </div><div class="err" id="rErr2"></div>`; }
   else cdHtml=`<p class="msg">Jornada ${w+1} finalizada · pendiente del sorteo del admin.</p>`;
+  // modo desarrollador
+  let devHtml='';
+  if(DEV&&!r){ devHtml=`<div class="card" style="border-style:dashed"><h2>${ic('settings')} Modo desarrollador</h2>
+    <div class="row">
+      <button class="btn sec" onclick="devFill(${w})">Rellenar Moves aleatorios (J${w+1})</button>
+      ${!endedF?`<button class="btn sec" onclick="FORCED=${w};render()">Forzar cierre de la jornada</button>`:''}
+    </div><div class="err" id="dErr"></div>
+    <p class="msg">Solo visible en la versión de desarrollo. La versión con dominio no llevará este panel.</p></div>`; }
   // mi duelo
   let duelHtml='<p class="msg">Esta semana descansas.</p>';
   if(pair){
@@ -526,7 +542,8 @@ function tJornada(){
   const others=pairsFor(w).filter(([a,b])=>!pair||(a!==me.name&&b!==me.name));
   const prevR=w>0?roundOf(w-1):null;
   $('#main').innerHTML=`
-  <div class="card">${cdHtml}</div>
+  <div class="card${stick}">${cdHtml}</div>
+  ${devHtml}
   <div class="card"><h2>${ic('zap')} Mi duelo · jornada ${w+1}</h2>${duelHtml}</div>
   ${others.length?`<div class="card"><h2>${ic('users')} Los demás duelos</h2>${others.map(([a,b])=>duelLine(a,b,w,r)).join('')}</div>`:''}
   ${prevR?`<div class="card"><h2>${ic('play')} Jornada anterior</h2>
@@ -551,9 +568,10 @@ function tMoves(){
   const maxDay=today<wkLast?today:wkLast;
   const types=parseTypes();
   const hint=selType?(types.find(t=>t.name===selType)||{}).hint:null;
+  const qUsed=quedadaUsed(s.playerId,w);
   $('#main').innerHTML=`
+  <div class="card stickcard" style="padding:8px 16px"><div class="cdlbl">Cierre del día</div><div class="cd" id="cdD" style="font-size:28px">…</div></div>
   <div class="card"><h2>${ic('activity')} Registrar actividad — ${esc(me?me.name:'')}</h2>
-    <p class="cdmini">${ic('clock',12)} Hoy se puede registrar hasta las 24:00 — quedan <span id="cdD">…</span></p>
     <label>Fecha (jornada ${w+1})</label><input type="date" id="aDay" value="${maxDay}" max="${maxDay}" min="${wkStart}">
     <label>Tipo de actividad</label>
     <div class="typegrid">${types.map(t=>`<button class="typebtn ${selType===t.name?'on':''}" onclick="setType('${esc(t.name)}')">${esc(t.name)}</button>`).join('')}</div>
@@ -562,14 +580,16 @@ function tMoves(){
     <div class="medgrid">
       ${[1,2,3].map(l=>`<button class="medbtn ${selLevel===l?'on':''}" onclick="setLevel(${l})">${medalSVG(l,24)}${['Bronce · 1 Move','Plata · 2 Moves','Oro · 3 Moves'][l-1]}</button>`).join('')}
     </div>
-    ${cfg.quedada?`<label style="margin-top:10px"><input type="checkbox" id="aQuedada" style="width:auto"> Fue la <b>actividad conjunta</b> de la semana (+1 Move)</label>`:''}
+    ${cfg.quedada?(qUsed
+      ?`<p class="msg" style="margin-top:10px">${ic('check',12)} Actividad conjunta ya usada esta semana (máx. 1).</p>`
+      :`<label style="margin-top:10px"><input type="checkbox" id="aQuedada" style="width:auto"> Fue la <b>actividad conjunta</b> de la semana (+1 Move). Si solo asististe sin entrenar, marca esto sin elegir nivel.</label>`):''}
     <label>Nota (opcional, visible para todos)</label><input id="aWhat" placeholder="p. ej. 6k por el río">
     <button class="btn full" onclick="registrar()">Registrar actividad</button>
     <div class="err" id="aErr"></div>
   </div>
   <div class="card"><h2>${ic('calendar')} Mi semana</h2>
     ${myActs.length?`<table><tr><th>Día</th><th>Nivel</th><th>Actividad</th><th></th></tr>${
-      myActs.map(a=>`<tr><td>${a.day.slice(5)}</td><td>${medalSVG(a.level,18)}${a.quedada?' <span class="pill">✚</span>':''}</td><td style="font-size:12.5px">${esc(a.activity||'')}</td>
+      myActs.map(a=>`<tr><td>${a.day.slice(5)}</td><td>${medalSVG(a.level,18)}${a.quedada?' <span class="pill">✚</span>':''}</td><td style="font-size:12.5px">${esc(isQOnly(a)?'Actividad conjunta (solo asistencia)':(a.activity||''))}</td>
       <td><button class="flagbtn" onclick="delDay('${a.day}')">${ic('x',15)}</button></td></tr>`).join('')}</table>`
       :'<p class="msg">Aún nada esta semana. Your move.</p>'}
   </div>`+btnBar();
@@ -578,17 +598,34 @@ function setType(t){ selType=selType===t?null:t; render(); }
 function setLevel(l){ selLevel=selLevel===l?0:l; render(); }
 async function registrar(){
   const s=ses(); $('#aErr').textContent='';
-  if(!selLevel){ $('#aErr').textContent='Elige el nivel (bronce, plata u oro).'; return; }
+  const qChecked=$('#aQuedada')?$('#aQuedada').checked:false;
   const nota=$('#aWhat').value.trim();
-  const texto=(selType||'')+(nota?(selType?' — ':'')+nota:'');
+  let level=selLevel, texto=(selType||'')+(nota?(selType?' — ':'')+nota:''), quedada=qChecked;
+  if(!selLevel){
+    if(qChecked){ level=1; texto='[conjunta]'; quedada=false; }   // solo asistencia: +1 Move, no cuenta como día
+    else{ $('#aErr').textContent='Elige el nivel (bronce, plata u oro) o marca la actividad conjunta.'; return; }
+  }
   try{
     const {error}=await sb.rpc('log_activity',{p_code:CUR,p_player:s.playerId,p_pin:s.pin,
-      p_day:$('#aDay').value,p_level:selLevel,p_activity:texto||null,
-      p_quedada:$('#aQuedada')?$('#aQuedada').checked:false});
+      p_day:$('#aDay').value,p_level:level,p_activity:texto||null,p_quedada:quedada});
     if(error) throw error;
     selType=null; selLevel=0;
     await refresh(); TAB='jornada'; render();
   }catch(e){ $('#aErr').textContent=e.message||'Error al registrar'; }
+}
+async function devFill(w){
+  if(!L.league.is_admin){ $('#dErr').textContent='Necesitas sesión de admin para simular.'; return; }
+  $('#dErr').textContent='Rellenando…';
+  try{
+    for(const p of L.players){
+      const g=Math.random()<.3?1:0, sl=Math.floor(Math.random()*3), b=Math.floor(Math.random()*4);
+      const maxB=Math.max(0,6-g-sl);
+      await sb.rpc('admin_set_week',{p_code:CUR,p_player:p.id,p_week_start:isoDay(weekStart(w)),
+        p_bronze:Math.min(b,maxB),p_silver:sl,p_gold:g,p_quedadas:Math.random()<.4?1:0});
+    }
+    FORCED=w;
+    await refresh();
+  }catch(e){ $('#dErr').textContent=e.message||'Error'; }
 }
 async function delDay(day){
   const s=ses();
@@ -642,7 +679,7 @@ function tLiga(){
     const mine=s&&a.player_id===s.playerId;
     return `<div class="feeditem">
       <span>${medalSVG(a.level,18)}</span>
-      <span class="fi"><b>${esc(p?p.name:'?')}</b> · ${a.day.slice(5)}${a.quedada?' <span class="pill">✚</span>':''}${a.adj?` <span class="pill">${a.adj>0?'+':''}${a.adj}</span>`:''}<br><span class="msg">${esc(a.activity||'')}</span>
+      <span class="fi"><b>${esc(p?p.name:'?')}</b> · ${a.day.slice(5)}${a.quedada?' <span class="pill">✚</span>':''}${a.adj?` <span class="pill">${a.adj>0?'+':''}${a.adj}</span>`:''}<br><span class="msg">${esc(isQOnly(a)?'Actividad conjunta (solo asistencia)':(a.activity||''))}</span>
       ${disputed?`<br><span class="disputed">EN DISPUTA (${a.reports} reportes) — pendiente del admin</span>`:''}</span>
       ${(!mine&&s)?`<button class="flagbtn ${(a.reports||0)>0?'rep':''}" title="Reportar (anónimo)" onclick="reportAct('${a.id}')">${ic('flag',15)}${(a.reports||0)>0?`<span style="font-size:10px">${a.reports}</span>`:''}</button>`:''}
     </div>`;
