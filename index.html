@@ -12,105 +12,142 @@
 <meta name="copyright" content="© 2026 Your Move Game Labs">
 <meta name="description" content="Your Move League — ligas de deporte entre amigos: cada día cuenta, nada está garantizado.">
 <title>Your Move League</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0e1420;--card:#1a2332;--card2:#212d40;--line:#2e3d55;--text:#e8edf5;
-    --dim:#8fa1bd;--acc:#ffb830;--acc2:#4da3ff;--win:#3ddc84;--lose:#ff5d5d;}
+  :root{
+    --bg:#faf9f7; --card:#ffffff; --card2:#f3f1ec; --line:#e5e1da;
+    --text:#1b2d4f; --dim:#7a8699;
+    --firma:#ff5a3c; --duelA:#ff5a3c; --duelB:#2b6cb0;
+    --win:#2f9e63; --lose:#d64545;
+  }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;padding-bottom:44px;}
-  header{padding:14px;text-align:center;border-bottom:1px solid var(--line);}
-  header h1{font-size:19px;color:var(--acc);letter-spacing:.5px;}
-  header .sub{color:var(--dim);font-size:12px;margin-top:2px;}
-  nav{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5;}
-  nav button{flex:1;background:none;border:none;color:var(--dim);padding:11px 2px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;}
-  nav button.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:600;}
-  main{max-width:560px;margin:0 auto;padding:14px;}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;}
-  .card h2{font-size:15px;margin-bottom:10px;color:var(--acc2);}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;}
+  header{padding:14px 12px 10px;text-align:center;border-bottom:1px solid var(--line);background:var(--card);}
+  .word{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:.5px;transform:skewX(-8deg);display:inline-block;color:var(--firma);}
+  .word .sp{display:inline-block;width:17px;height:4px;background:var(--firma);margin-right:2px;vertical-align:middle;border-radius:2px;}
+  .word .sp2{width:9px;opacity:.55;}
+  .lg{font-size:9.5px;letter-spacing:6px;color:var(--dim);margin-top:1px;font-weight:600;}
+  .sub{color:var(--dim);font-size:12px;margin-top:4px;}
+  nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);z-index:20;padding-bottom:env(safe-area-inset-bottom);}
+  nav.on{display:flex;}
+  nav button{flex:1;background:none;border:none;color:var(--dim);padding:8px 2px 7px;font-size:10.5px;cursor:pointer;font-family:inherit;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px;}
+  nav button svg{width:21px;height:21px;}
+  nav button.on{color:var(--firma);}
+  main{max-width:560px;margin:0 auto;padding:14px 14px 84px;}
+  @media(min-width:720px){
+    nav.on{position:sticky;top:0;bottom:auto;border-top:none;border-bottom:1px solid var(--line);}
+    nav button{flex-direction:row;font-size:13px;padding:11px;gap:7px;}
+    main{padding-bottom:30px;}
+  }
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(27,45,79,.05);}
+  .card h2{font-size:12.5px;margin-bottom:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;display:flex;align-items:center;gap:6px;}
+  .card h2 svg{width:15px;height:15px;}
   label{display:block;color:var(--dim);font-size:12px;margin:10px 0 4px;}
-  input,textarea,select{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font-size:16px;}
-  textarea{min-height:110px;font-family:inherit;}
-  .btn{display:inline-block;background:var(--acc);color:#1a1400;border:none;border-radius:8px;padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;}
-  .btn.sec{background:var(--card2);color:var(--text);border:1px solid var(--line);}
-  .btn.lvl{font-size:15px;padding:12px 8px;flex:1;margin-top:0;}
-  .btn.danger{background:var(--lose);color:#fff;}
+  input,textarea,select{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px;font-size:16px;font-family:inherit;}
+  textarea{min-height:110px;}
+  .btn{display:inline-flex;align-items:center;gap:6px;background:var(--firma);color:#fff;border:none;border-radius:9px;padding:11px 16px;font-size:14px;font-weight:800;cursor:pointer;margin-top:12px;font-family:inherit;}
+  .btn svg{width:16px;height:16px;}
+  .btn.sec{background:var(--card2);color:var(--text);border:1px solid var(--line);font-weight:600;}
+  .btn.danger{background:var(--lose);}
+  .btn.full{width:100%;justify-content:center;}
   .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
   .msg{color:var(--dim);font-size:13px;line-height:1.5;}
   .err{color:var(--lose);font-size:13px;margin-top:8px;min-height:16px;}
   .ok{color:var(--win);font-size:13px;margin-top:8px;}
-  .big{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--acc);}
+  .big{font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:2px;color:var(--firma);}
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  th{color:var(--dim);font-weight:600;text-align:left;padding:6px;border-bottom:1px solid var(--line);font-size:12px;}
-  td{padding:7px 6px;border-bottom:1px solid var(--line);}
+  th{color:var(--dim);font-weight:600;text-align:left;padding:6px;border-bottom:1px solid var(--line);font-size:11.5px;}
+  td{padding:8px 6px;border-bottom:1px solid var(--line);}
   tr:last-child td{border-bottom:none;}
   .num{text-align:center;}
   .duelbox{background:var(--card2);border-radius:12px;padding:14px;}
   .duelnames{display:flex;justify-content:space-between;font-weight:800;font-size:16px;}
   .duelmoves{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;margin:4px 0 10px;}
   .bar{height:14px;border-radius:8px;overflow:hidden;display:flex;background:var(--line);}
-  .bar .l{background:var(--acc);transition:width .8s ease;}
-  .bar .r{background:var(--acc2);transition:width .8s ease;}
+  .bar .l{background:var(--duelA);transition:width .8s ease;}
+  .bar .r{background:var(--duelB);transition:width .8s ease;}
   .pcts{display:flex;justify-content:space-between;font-weight:800;margin-top:6px;}
-  .medal{font-size:17px;}
-  .pill{display:inline-block;font-size:11px;border-radius:20px;padding:1px 8px;background:var(--card2);border:1px solid var(--line);color:var(--dim);margin-left:5px;vertical-align:middle;}
-  .whats{background:#0b2a1e;border:1px solid #1d5c40;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;margin-top:10px;}
-  .logi{border-left:2px solid var(--line);padding:4px 10px;margin:6px 0;font-size:12.5px;color:var(--dim);}
-  a{color:var(--acc2);}
-  .duel{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border-radius:10px;padding:9px 12px;margin-bottom:7px;font-size:14px;}
-  .duel .sc{padding:0 10px;font-weight:800;color:var(--acc);white-space:nowrap;font-size:13px;}
-  .duel .w{color:var(--win);font-weight:700;}
-  footer{position:fixed;bottom:0;left:0;right:0;text-align:center;padding:5px;font-size:9.5px;color:var(--dim);background:var(--bg);border-top:1px solid var(--line);}
-  /* modales */
-  .modal{display:none;position:fixed;inset:0;background:rgba(5,8,14,.97);z-index:60;overflow-y:auto;padding:20px;}
+  .pill{display:inline-block;font-size:10.5px;border-radius:20px;padding:1px 8px;background:var(--card2);border:1px solid var(--line);color:var(--dim);margin-left:5px;vertical-align:middle;}
+  .chip{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;font-size:9.5px;font-weight:800;color:#fff;margin-left:3px;}
+  .chip.v{background:var(--win);} .chip.d{background:var(--lose);} .chip.n{background:var(--dim);}
+  .whats{background:#f0f7f1;border:1px solid #cfe5d4;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;margin-top:10px;color:#254433;}
+  .logi{border-left:2px solid var(--line);padding:5px 10px;margin:6px 0;font-size:12.5px;color:var(--dim);}
+  .feeditem{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  .feeditem:last-child{border-bottom:none;}
+  .feeditem .fi{flex:1;}
+  .flagbtn{background:none;border:none;color:var(--dim);cursor:pointer;padding:2px;}
+  .flagbtn svg{width:15px;height:15px;}
+  .flagbtn.rep{color:var(--lose);}
+  .disputed{color:var(--lose);font-weight:700;font-size:11px;}
+  .typegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
+  .typebtn{background:var(--card2);border:1.5px solid var(--line);border-radius:10px;padding:10px 8px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--text);text-align:center;}
+  .typebtn.on{border-color:var(--firma);color:var(--firma);font-weight:700;background:#fff2ee;}
+  .medgrid{display:flex;gap:8px;margin-top:4px;}
+  .medbtn{flex:1;background:var(--card2);border:1.5px solid var(--line);border-radius:10px;padding:10px 4px;cursor:pointer;font-family:inherit;color:var(--text);text-align:center;font-size:12px;}
+  .medbtn svg{display:block;margin:0 auto 3px;}
+  .medbtn.on{border-color:var(--firma);background:#fff2ee;font-weight:700;}
+  .medal{vertical-align:middle;}
+  a{color:var(--duelB);}
+  details{margin-bottom:14px;}
+  details summary{cursor:pointer;font-size:13px;color:var(--dim);font-weight:600;padding:6px 2px;}
+  footer{text-align:center;padding:10px;font-size:10px;color:var(--dim);}
+  .modal{display:none;position:fixed;inset:0;background:rgba(20,25,35,.55);z-index:60;overflow-y:auto;padding:20px;}
   .modal.show{display:block;}
   /* pong */
-  #ov{position:fixed;inset:0;background:rgba(5,8,14,.98);z-index:70;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;}
+  #ov{position:fixed;inset:0;background:rgba(250,249,247,.98);z-index:70;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;}
   #ov.show{display:flex;}
   #ov .prog{color:var(--dim);font-size:12px;margin-bottom:8px;}
   .pName{font-size:17px;font-weight:800;}
   .pMeta{color:var(--dim);font-size:12.5px;margin-top:2px;}
   .pc{font-weight:800;} .pcW{color:var(--win);} .pcL{color:var(--lose);} .pcN{color:var(--dim);}
   .intro{display:flex;justify-content:space-between;width:100%;max-width:440px;}
-  .court{position:relative;width:100%;max-width:440px;height:200px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden;}
-  .net{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:2px dashed var(--line);}
+  .court{position:relative;width:100%;max-width:440px;height:200px;background:#1b2d4f;border-radius:12px;margin:12px 0;overflow:hidden;}
+  .net{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:2px dashed rgba(255,255,255,.25);}
   .paddle{position:absolute;width:8px;height:52px;border-radius:4px;top:74px;transition:top .35s ease;}
-  .paddle.A{left:10px;background:var(--acc);}
-  .paddle.B{right:10px;background:var(--acc2);}
-  .pball{position:absolute;width:16px;height:16px;border-radius:50%;background:#dfe6ef;box-shadow:0 0 10px rgba(255,255,255,.35);transition:left .5s linear, top .5s ease;}
-  #pscore{font-size:26px;font-weight:900;color:var(--acc);min-height:32px;}
+  .paddle.A{left:10px;background:var(--duelA);}
+  .paddle.B{right:10px;background:#7db4e8;}
+  .pball{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.5);transition:left .5s linear, top .5s ease;}
+  #pscore{font-family:'Archivo Black',sans-serif;font-size:26px;color:var(--text);min-height:34px;}
   #pres{font-size:17px;font-weight:800;min-height:24px;margin:6px 0 14px;}
   #pres .w{color:var(--win);}
 </style>
 </head>
 <body>
-<header><h1>🏆 YOUR MOVE LEAGUE</h1><div class="sub" id="hSub">Cada día cuenta. Nada está garantizado.</div></header>
-<nav id="nav" style="display:none">
-  <button data-t="liga">Liga</button>
-  <button data-t="apuntar">Apuntar</button>
-  <button data-t="duelo">Mi duelo</button>
-  <button data-t="admin" id="tabAdmin" style="display:none">Admin</button>
+<header>
+  <span class="word"><span class="sp"></span><span class="sp sp2"></span>YOUR MOVE</span>
+  <div class="lg">L E A G U E</div>
+  <div class="sub" id="hSub">Cada día cuenta. Nada está garantizado.</div>
+</header>
+<nav id="nav">
+  <button data-t="jornada"></button>
+  <button data-t="moves"></button>
+  <button data-t="liga"></button>
+  <button data-t="admin" id="tabAdmin" style="display:none"></button>
 </nav>
 <main id="main"><div class="card"><p class="msg">Cargando…</p></div></main>
 <footer>© 2026 Your Move Game Labs · <a href="#" onclick="vSup();return false">soporte</a> · <a href="#" onclick="vPriv();return false">privacidad</a></footer>
 
-<div id="priv" class="modal"><div style="max-width:560px;margin:0 auto" class="card">
+<div id="priv" class="modal"><div style="max-width:560px;margin:20px auto" class="card">
   <h2>Aviso de privacidad</h2>
   <div class="msg" style="font-size:13px">
-  <p><b>Responsable:</b> Your Move Game Labs (Your Move League) · contacto: soporte@yourmoveleague.com.</p>
-  <p style="margin-top:8px"><b>Qué datos tratamos:</b> el correo y contraseña del administrador de cada liga (gestión de acceso), los nombres de los participantes tal y como los introduce su administrador, las actividades deportivas registradas (fecha, nivel, descripción) y un PIN opcional. No recogemos ubicación ni datos de dispositivos.</p>
-  <p style="margin-top:8px"><b>Para qué:</b> exclusivamente el funcionamiento de la liga (clasificaciones, duelos, sorteos) y estadísticas internas agregadas y anónimas. No vendemos ni cedemos datos a terceros.</p>
-  <p style="margin-top:8px"><b>Dónde:</b> Supabase (servidores en la Unión Europea), como proveedor técnico.</p>
+  <p><b>Responsable:</b> Your Move Game Labs (Your Move League) · soporte@yourmoveleague.com.</p>
+  <p style="margin-top:8px"><b>Qué datos tratamos:</b> correo y contraseña del administrador (gestión de acceso), nombres de participantes introducidos por su administrador, actividades registradas (fecha, nivel, descripción) y un PIN opcional. Sin ubicación ni datos de dispositivos.</p>
+  <p style="margin-top:8px"><b>Para qué:</b> el funcionamiento de la liga y estadísticas internas agregadas y anónimas. No vendemos ni cedemos datos.</p>
+  <p style="margin-top:8px"><b>Dónde:</b> Supabase (servidores en la UE), proveedor técnico.</p>
   <p style="margin-top:8px"><b>Tus derechos:</b> acceso, corrección o borrado escribiendo a soporte@yourmoveleague.com.</p>
-  <p style="margin-top:8px"><b>PIN y contraseña:</b> no reutilices contraseñas de otros servicios.</p>
-  <p style="margin-top:8px"><b>Almacenamiento local:</b> guardamos en tu navegador tu código de liga y participante para no pedírtelos cada vez. Sin cookies de seguimiento ni publicidad.</p>
+  <p style="margin-top:8px"><b>Reportes:</b> al reportar una actividad guardamos quién reporta solo para impedir duplicados; nunca se muestra.</p>
+  <p style="margin-top:8px"><b>Almacenamiento local:</b> guardamos en tu navegador tu liga y participante para no pedirlos cada vez. Sin cookies de seguimiento ni publicidad.</p>
   </div>
   <button class="btn sec" onclick="closeModal('priv')">Cerrar</button>
 </div></div>
 
-<div id="sup" class="modal"><div style="max-width:420px;margin:40px auto" class="card">
+<div id="sup" class="modal"><div style="max-width:420px;margin:60px auto" class="card">
   <h2>Soporte</h2>
-  <p class="msg">Bugs, dudas y sugerencias (¡se leen todas!):</p>
-  <div class="big" style="font-size:16px;margin-top:8px;user-select:all">soporte@yourmoveleague.com</div>
-  <div class="row"><button class="btn sec" onclick="copyTxt('soporte@yourmoveleague.com','Correo copiado')">📋 Copiar</button>
+  <p class="msg">Bugs, dudas y sugerencias (se leen todas):</p>
+  <div style="font-weight:800;font-size:15px;margin-top:8px;user-select:all">soporte@yourmoveleague.com</div>
+  <div class="row"><button class="btn sec" onclick="copyTxt('soporte@yourmoveleague.com','Correo copiado')">Copiar</button>
   <button class="btn sec" onclick="closeModal('sup')">Cerrar</button></div>
 </div></div>
 
@@ -123,21 +160,47 @@
 const SB_URL='https://mbnwujxbckvroitzttgi.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ibnd1anhiY2t2cm9pdHp0dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5Mjk1MDIsImV4cCI6MjEwMzUwNTUwMn0.1kf0ADGQhYYMRFOWXHE6fdHlolOo3Fanhka3mjTLMBE';
 const sb=window.supabase.createClient(SB_URL,SB_KEY);
-const VERSION='web v0.2';
+const VERSION='web v0.3';
 const PLANTILLA_DEF=
 `Correr: 30 min / 1h30 / 2h
 Caminar: 10.000 pasos / 20.000 / 30.000
 Bici: 45 min / 2h / 3h
 Nadar: 30 min / 1h / 1h30
-Gimnasio o clase dirigida: 1 sesión (45 min) / 2 sesiones / 3 sesiones
-Deporte de equipo o raqueta: partido o entreno 45 min / 2h / torneo
-Esterilla en casa: 45 min / 1h30 / 2h
-(Ⓐ Amateur: umbrales -25 % · Ⓔ Élite: +25 %)`;
+Gimnasio: 1 sesión / 2 sesiones / 3 sesiones
+Clase dirigida: 1 clase / 2 clases / 3 clases
+Equipo o raqueta: 45 min / 2h / torneo
+Esterilla en casa: 45 min / 1h30 / 2h`;
+
+/* ============ ICONOS (SVG de línea, estilo Lucide) ============ */
+function ic(n,s){
+  const P={
+    zap:'M13 2 3 14h7l-1 8 11-12h-7l1-8z',
+    activity:'M22 12h-4l-3 8-6-16-3 8H2',
+    trophy:'M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0zM7 6H4a2 2 0 0 0 2 4h1M17 6h3a2 2 0 0 1-2 4h-1',
+    settings:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1',
+    flag:'M5 21V4M5 4h12l-2 4 2 4H5',
+    copy:'M9 9h11v11H9zM5 15H4V4h11v1',
+    refresh:'M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6',
+    plus:'M12 5v14M5 12h14',
+    lock:'M5 11h14v9H5zM8 11V8a4 4 0 0 1 8 0v3',
+    check:'M5 13l4 4L19 7',
+    x:'M6 6l12 12M18 6 6 18',
+    logout:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',
+    calendar:'M3 6h18v15H3zM16 3v4M8 3v4M3 11h18',
+    users:'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3.5 20a5.5 5.5 0 0 1 11 0M16 11a3 3 0 1 0 0-6M17 20h4.5a4.5 4.5 0 0 0-3-4.2'
+  };
+  return `<svg width="${s||16}" height="${s||16}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${P[n]||''}"/></svg>`;
+}
+function medalSVG(l,s){
+  const c=[['#c9793a','#8a4f22','#fff'],['#b9c2cf','#7e8795','#39424f'],['#e8b83a','#a97f14','#5c4404']][l-1];
+  return `<svg class="medal" width="${s||20}" height="${s||20}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="${c[0]}" stroke="${c[1]}" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="800" fill="${c[2]}">${l}</text></svg>`;
+}
+const NAV=[['jornada','Jornada','zap'],['moves','Moves','activity'],['liga','Liga','trophy'],['admin','Admin','settings']];
 
 /* ============ ESTADO ============ */
-let L=null, TAB='liga', USER=null;
-let MEM=JSON.parse(localStorage.getItem('yml_mem')||'{}');   // {code:{playerId,pin}}
-let CUR=localStorage.getItem('yml_cur')||null;               // código de liga activo
+let L=null, TAB='jornada', USER=null, selType=null, selLevel=0;
+let MEM=JSON.parse(localStorage.getItem('yml_mem')||'{}');
+let CUR=localStorage.getItem('yml_cur')||null;
 const $=s=>document.querySelector(s);
 const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function saveMem(){ localStorage.setItem('yml_mem',JSON.stringify(MEM)); if(CUR)localStorage.setItem('yml_cur',CUR); }
@@ -173,13 +236,28 @@ function pairsFor(w){ const c=L.league.calendar; return c.length?c[w%c.length]:[
 function byName(n){ return L.players.find(p=>p.name===n)||null; }
 function catBadge(p){
   if(!p)return'';
-  if(p.category==='amateur') return ' <span class="pill" title="Amateur: umbrales -25%">Ⓐ</span>';
-  if(p.category==='elite')   return ' <span class="pill" title="Élite: umbrales +25%">Ⓔ</span>';
+  if(p.category==='amateur') return ' <span class="pill" title="Amateur: umbrales -25%">A</span>';
+  if(p.category==='elite')   return ' <span class="pill" title="Élite: umbrales +25%">E</span>';
   return '';
+}
+function parseTypes(){
+  return (L.league.config.levels||PLANTILLA_DEF).split('\n')
+    .map(l=>l.trim()).filter(l=>l&&!l.startsWith('(')&&l.includes(':'))
+    .map(l=>{ const i=l.indexOf(':'); return {name:l.slice(0,i).trim(), hint:l.slice(i+1).trim()}; });
+}
+function formChips(name){
+  const res=[];
+  (L.rounds||[]).forEach(r=>{
+    (r.data.duels||[]).forEach(d=>{
+      if(d.a!==name&&d.b!==name) return;
+      res.push(d.nulo?'n':(d.winner===name?'v':'d'));
+    });
+  });
+  return res.slice(-3).map(x=>`<span class="chip ${x}">${x==='v'?'V':(x==='d'?'D':'–')}</span>`).join('');
 }
 function standings(){
   const st={};
-  L.players.forEach(p=>st[p.name]={name:p.name,cat:p.category,pj:0,v:0,pts:0,dias:0,moves:0});
+  L.players.forEach(p=>st[p.name]={name:p.name,pj:0,v:0,pts:0,dias:0,moves:0});
   L.players.forEach(p=>{
     for(let w=0;w<L.league.config.weeks;w++){ st[p.name].dias+=daysOfWeek(p.id,w); st[p.name].moves+=movesOfWeek(p.id,w); }
   });
@@ -195,10 +273,21 @@ function standings(){
   });
   return Object.values(st).sort((a,b)=>b.pts-a.pts||b.dias-a.dias||b.moves-a.moves||a.name.localeCompare(b.name));
 }
+function clasifHTML(){
+  return `<table><tr><th>#</th><th>Nombre</th><th class="num">Pts</th><th class="num">Días</th><th>Forma</th></tr>${
+    standings().map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}${catBadge(byName(s.name))}</td><td class="num"><b>${s.pts}</b></td><td class="num">${s.dias}</td><td>${formChips(s.name)}</td></tr>`).join('')}
+  </table>`;
+}
 
-/* ============ NAVEGACIÓN ============ */
-document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{ TAB=b.dataset.t; render(); });
-function closeModal(id){ document.getElementById(id).style.display='none'; document.getElementById(id).classList.remove('show'); }
+/* ============ NAV / MODALES ============ */
+function buildNav(){
+  document.querySelectorAll('#nav button').forEach((b,i)=>{
+    const [t,lab,icn]=NAV[i];
+    b.innerHTML=ic(icn,21)+`<span>${lab}</span>`;
+    b.onclick=()=>{ TAB=t; render(); };
+  });
+}
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 function vPriv(){ document.getElementById('priv').classList.add('show'); }
 function vSup(){ document.getElementById('sup').classList.add('show'); }
 function copyTxt(t,msg){
@@ -209,24 +298,24 @@ function copyTxt(t,msg){
 
 /* ============ HOME / AUTH ============ */
 function vHome(){
-  $('#nav').style.display='none';
+  $('#nav').classList.remove('on');
   $('#hSub').textContent='Cada día cuenta. Nada está garantizado.';
   const adminBox = USER
     ? `<p class="msg">Sesión de admin: <b>${esc(USER.email)}</b></p>
        <div id="mls" class="row" style="margin-top:8px"><span class="msg">Cargando tus ligas…</span></div>
-       <div class="row"><button class="btn" onclick="vCreate()">➕ Crear liga</button>
-       <button class="btn sec" onclick="logoutAdmin()">Cerrar sesión</button></div>`
+       <div class="row"><button class="btn" onclick="vCreate()">${ic('plus')} Crear liga</button>
+       <button class="btn sec" onclick="logoutAdmin()">${ic('logout')} Salir</button></div>`
     : `<label>Correo</label><input id="aEmail" type="email" autocomplete="email">
        <label>Contraseña</label><input id="aPass" type="password" autocomplete="current-password">
        <div class="row"><button class="btn" onclick="loginAdmin()">Entrar</button>
        <button class="btn sec" onclick="signupAdmin()">Crear cuenta</button></div>
        <div class="err" id="aErr"></div>`;
   $('#main').innerHTML=`
-  <div class="card"><h2>Entrar en mi liga</h2>
+  <div class="card"><h2>${ic('users')} Entrar en mi liga</h2>
     <label>Código de la liga</label><input id="jCode" maxlength="10" style="text-transform:uppercase" placeholder="p. ej. K7KM2X">
     <button class="btn" onclick="openLeague()">Entrar</button><div class="err" id="jErr"></div>
   </div>
-  <div class="card"><h2>Zona de administradores</h2>${adminBox}</div>`;
+  <div class="card"><h2>${ic('settings')} Zona de administradores</h2>${adminBox}</div>`;
   if(USER) loadMyLeagues();
 }
 async function loadMyLeagues(){
@@ -254,12 +343,12 @@ async function logoutAdmin(){ await sb.auth.signOut(); USER=null; vHome(); }
 function vCreate(){
   const nextMonday=(()=>{const d=new Date();d.setDate(d.getDate()+((8-d.getDay())%7||7));return isoDay(d);})();
   $('#main').innerHTML=`
-  <div class="card"><h2>Nueva liga</h2>
+  <div class="card"><h2>${ic('plus')} Nueva liga</h2>
     <label>Nombre de la liga</label><input id="cName" placeholder="Liga de la oficina">
     <label>Premio / motivación</label><input id="cPrize" placeholder="Los 3 últimos invitan a cena casera; el 1.º elige menú">
     <label>Participantes (uno por línea, mín. 3). Añade <b>-</b> = Amateur (-25 %) o <b>+</b> = Élite (+25 %)</label>
     <textarea id="cPlayers" placeholder="Mario&#10;Alicia -&#10;JC +"></textarea>
-    <label>Niveles por actividad (🥉 / 🥈 / 🥇) — edítalo a gusto de tu liga</label>
+    <label>Actividades y niveles — formato: «Actividad: bronce / plata / oro» (una por línea)</label>
     <textarea id="cLevels" style="min-height:150px">${PLANTILLA_DEF}</textarea>
     <label>Fecha de inicio (lunes de la jornada 1)</label><input type="date" id="cStart" value="${nextMonday}">
     <div class="row">
@@ -269,8 +358,7 @@ function vCreate(){
     </div>
     <label style="margin-top:12px"><input type="checkbox" id="cQuedada" checked style="width:auto"> Actividad conjunta semanal (+1 Move)</label>
     <label><input type="checkbox" id="cOculto" style="width:auto"> Rival oculto (solo se ve el duelo en curso)</label>
-    <p class="msg" style="margin-top:8px">Duelos al mejor de 3 · victoria 3 pts · derrota entrenando 4+ días 1 pt · desempate por regularidad.</p>
-    <div class="row"><button class="btn" onclick="createLeague()">🚀 Crear liga</button>
+    <div class="row"><button class="btn" onclick="createLeague()">Crear liga</button>
     <button class="btn sec" onclick="vHome()">Volver</button></div>
     <div class="err" id="cErr"></div>
   </div>`;
@@ -302,16 +390,16 @@ function vCreated(code,name,cfg){
   const url=location.origin+location.pathname;
   const whats=`🏆 ${name.toUpperCase()} — YOUR MOVE LEAGUE\n`+
     (cfg.prize?`🎁 ${cfg.prize}\n`:'')+
-    `\n📲 Apunta tu deporte y vigila tu duelo:\n${url}\n🔑 Código: ${code}\n`+
-    `\n📸 Foto instantánea al grupo + apúntate el día en la web.\n`+
-    `🥉 1 Move · 🥈 2 · 🥇 3 (por coste de agenda)\n🎳 Domingo: sorteo de la jornada. Más deporte = más opciones. Garantizado, nada.`;
+    `\n📲 Registra tu actividad y vigila tu duelo:\n${url}\n🔑 Código: ${code}\n`+
+    `\n📸 Foto instantánea al grupo + registra tu día en la web.\n`+
+    `🥉 1 Move · 🥈 2 · 🥇 3 (por coste de agenda)\n🎯 Domingo: se resuelve la jornada. Más deporte = más opciones. Garantizado, nada.`;
   $('#main').innerHTML=`
-  <div class="card"><h2>¡Liga creada!</h2>
+  <div class="card"><h2>${ic('check')} ¡Liga creada!</h2>
     <label>Código para los participantes</label><div class="big">${esc(code)}</div>
     <p class="msg" style="margin-top:6px">Tú ya eres el admin con tu cuenta — entra en la liga y verás la pestaña Admin.</p>
     <label style="margin-top:12px">Texto para la descripción del grupo de WhatsApp</label>
     <div class="whats" id="wTxt">${esc(whats)}</div>
-    <div class="row"><button class="btn sec" onclick="copyTxt(document.getElementById('wTxt').textContent,'Texto copiado')">📋 Copiar</button>
+    <div class="row"><button class="btn sec" onclick="copyTxt(document.getElementById('wTxt').textContent,'Texto copiado')">${ic('copy')} Copiar</button>
     <button class="btn" onclick="goLeague('${code}')">Ir a la liga</button></div>
   </div>`;
 }
@@ -323,7 +411,7 @@ async function goLeague(code){
     const {data,error}=await sb.rpc('get_league',{p_code:code});
     if(error) throw error;
     if(!data){ if($('#jErr'))$('#jErr').textContent='Código no válido.'; return; }
-    L=data; CUR=code.toUpperCase(); saveMem(); TAB='liga'; render();
+    L=data; CUR=code.toUpperCase(); saveMem(); TAB='jornada'; render();
   }catch(e){ if($('#jErr'))$('#jErr').textContent=e.message||'Error de conexión'; else alert(e.message); }
 }
 async function refresh(){
@@ -332,112 +420,105 @@ async function refresh(){
 }
 function exitLeague(){ L=null; CUR=null; localStorage.removeItem('yml_cur'); vHome(); }
 
-/* ============ RENDER LIGA ============ */
+/* ============ RENDER ============ */
 function render(){
   if(!L){ vHome(); return; }
-  $('#nav').style.display='flex';
-  $('#tabAdmin').style.display=L.league.is_admin?'block':'none';
+  $('#nav').classList.add('on');
+  $('#tabAdmin').style.display=L.league.is_admin?'flex':'none';
   const w=weekIdx(), cfg=L.league.config;
   $('#hSub').textContent=`${L.league.name} · ${w<0?'empieza '+cfg.start:(w>=cfg.weeks?'liga terminada':'jornada '+(w+1)+' de '+cfg.weeks)}`;
-  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===TAB));
-  ({liga:tLiga,apuntar:tApuntar,duelo:tDuelo,admin:tAdmin}[TAB]||tLiga)();
+  document.querySelectorAll('#nav button').forEach(b=>{
+    const t=NAV[[...b.parentNode.children].indexOf(b)][0];
+    b.classList.toggle('on',t===TAB);
+  });
+  ({jornada:tJornada,moves:tMoves,liga:tLiga,admin:tAdmin}[TAB]||tJornada)();
 }
 
-/* ---- pestaña LIGA ---- */
-function tLiga(){
-  const cfg=L.league.config, w=weekIdx();
-  const st=standings();
-  let h=`<div class="card"><h2>Clasificación</h2>
-  <table><tr><th>#</th><th>Nombre</th><th class="num">PJ</th><th class="num">V</th><th class="num">Pts</th><th class="num">Días</th></tr>${
-    st.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}${catBadge(byName(s.name))}</td><td class="num">${s.pj}</td><td class="num">${s.v}</td><td class="num"><b>${s.pts}</b></td><td class="num">${s.dias}</td></tr>`).join('')}
-  </table><p class="msg" style="margin-top:6px">Victoria 3 pts · derrota con 4+ días 1 pt · desempate: días acumulados (regularidad) y duelo directo.</p></div>`;
-  // calendario
-  h+=`<div class="card"><h2>Calendario</h2>`;
-  for(let j=0;j<cfg.weeks;j++){
-    const r=(L.rounds||[]).find(x=>x.number===j+1);
-    const hidden=cfg.oculto&&!r&&j!==Math.max(w,0);
-    h+=`<p style="margin:8px 0 4px;font-weight:700;font-size:13px;color:var(--dim)">Jornada ${j+1} ${r?'✅':(j===w?'· en curso':'')} ${hidden?'🔒':''}</p>`;
-    if(hidden) continue;
-    pairsFor(j).forEach(([a,b])=>{
-      let sc='vs';
-      if(r){ const d=(r.data.duels||[]).find(x=>x.a===a&&x.b===b); if(d) sc=d.nulo?'nulo':`<span class="w">${esc(d.winner)}</span> ${d.score}`; }
-      h+=`<div class="duel"><span>${esc(a)}</span><span class="sc">${sc}</span><span>${esc(b)}</span></div>`;
-    });
-  }
-  h+=`</div>`;
-  // actividad reciente
-  const feed=[...L.activities].sort((a,b)=>a.day<b.day?1:-1).slice(0,15);
-  h+=`<div class="card"><h2>Actividad reciente</h2>${feed.length?feed.map(a=>{
-    const p=L.players.find(x=>x.id===a.player_id);
-    return `<div class="logi"><b style="color:var(--text)">${esc(p?p.name:'?')}</b> · ${a.day} · <span class="medal">${['','🥉','🥈','🥇'][a.level]}</span>${a.quedada?' ✚':''}${a.adj?` <span class="pill">${a.adj>0?'+':''}${a.adj}</span>`:''} ${esc(a.activity||'')}</div>`;
-  }).join(''):'<p class="msg">Nada aún. Your move.</p>'}</div>`;
-  // normas
-  h+=`<div class="card"><h2>Normas de la liga</h2>
-    ${cfg.prize?`<p class="msg">🎁 <b>${esc(cfg.prize)}</b></p>`:''}
-    <p class="msg" style="margin-top:6px;white-space:pre-wrap">${esc(cfg.levels||PLANTILLA_DEF)}</p>
-    <p class="msg" style="margin-top:6px">Máx. ${cfg.maxDays} días/semana · ${cfg.bonusDay>0?`bonus +1 Move al llegar al día ${cfg.bonusDay}`:'sin bonus de regularidad'} · ${cfg.quedada?'actividad conjunta +1 Move':'sin actividad conjunta'} · calendario ${cfg.oculto?'con rival oculto':'público'}.</p></div>`;
-  // historial admin
-  const log=(L.league.log||[]).slice().reverse();
-  h+=`<div class="card"><h2>Registro del administrador</h2>${log.length?log.map(x=>
-    `<div class="logi">${(x.at||'').slice(0,16).replace('T',' ')} — ${esc(x.action)}${x.reason?` · <i>${esc(x.reason)}</i>`:''}</div>`).join(''):'<p class="msg">Sin cambios.</p>'}</div>`;
-  h+=btnBar();
-  $('#main').innerHTML=h;
-}
-
-/* ---- pestaña APUNTAR ---- */
-function tApuntar(){
+/* ---- JORNADA ---- */
+function tJornada(){
   const s=ses(), w=weekIdx(), cfg=L.league.config;
-  if(!s){ pickPlayer('apuntar'); return; }
-  if(w<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}. Ve calentando 🔥</p></div>`+btnBar(); return; }
+  if(!s){ pickPlayer('jornada'); return; }
+  const hoy=new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+  let duelHtml='';
+  if(w<0) duelHtml=`<p class="msg">La liga empieza el ${cfg.start}. Ve calentando.</p>`;
+  else if(w>=cfg.weeks) duelHtml=`<p class="msg">La liga ha terminado. ¡Gracias por jugar!</p>`;
+  else{
+    const me=L.players.find(p=>p.id===s.playerId);
+    const pair=pairsFor(w).find(([a,b])=>a===me.name||b===me.name);
+    if(!pair) duelHtml=`<p class="msg">Esta semana descansas.</p>`;
+    else{
+      const rivalName=pair[0]===me.name?pair[1]:pair[0];
+      const rival=byName(rivalName);
+      const ma=movesOfWeek(me.id,w);
+      const mb=rival?movesOfWeek(rival.id,w):Math.round((L.players.map(p=>movesOfWeek(p.id,w)).sort((a,b)=>a-b))[Math.floor(L.players.length/2)]||0);
+      const meFirst=pair[0]===me.name;
+      const pMe=Math.round(serieProb(ma,mb)*100);
+      const r=(L.rounds||[]).find(x=>x.number===w+1);
+      let resHtml='';
+      if(r){ const d=(r.data.duels||[]).find(x=>(x.a===pair[0]&&x.b===pair[1])); if(d) resHtml=`<p class="ok">Jornada resuelta: ${d.nulo?'duelo nulo':`ganó <b>${esc(d.winner)}</b> ${d.score}`}.</p>`; }
+      duelHtml=`<div class="duelbox">
+        <div class="duelnames"><span style="color:var(--duelA)">${esc(me.name)}</span><span style="color:var(--duelB)">${esc(rivalName)}</span></div>
+        <div class="duelmoves"><span>${ma} Moves</span><span>${mb} Moves</span></div>
+        <div class="bar"><div class="l" style="width:${pMe}%"></div><div class="r" style="width:${100-pMe}%"></div></div>
+        <div class="pcts"><span style="color:var(--duelA)">${pMe} %</span><span style="color:var(--duelB)">${100-pMe} %</span></div>
+        <p class="msg" style="margin-top:8px">Duelo vivo hasta el domingo. ${pMe>=50?'No te relajes.':'Aún hay partido.'}</p>
+        ${resHtml}
+      </div>`;
+    }
+  }
+  $('#main').innerHTML=`
+  <div class="card"><h2>${ic('zap')} ${hoy.charAt(0).toUpperCase()+hoy.slice(1)} · jornada ${Math.max(1,Math.min(w+1,cfg.weeks))}</h2>${duelHtml}</div>
+  <div class="card"><h2>${ic('trophy')} Clasificación</h2>${clasifHTML()}
+    <p class="msg" style="margin-top:6px">Victoria 3 pts · derrota con 4+ días 1 pt · desempate por regularidad.</p></div>`+btnBar();
+}
+
+/* ---- MOVES (registrar) ---- */
+function tMoves(){
+  const s=ses(), w=weekIdx(), cfg=L.league.config;
+  if(!s){ pickPlayer('moves'); return; }
+  if(w<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}.</p></div>`+btnBar(); return; }
   const me=L.players.find(p=>p.id===s.playerId);
   const myActs=actsOfWeek(s.playerId,w);
   const today=isoDay(new Date());
+  const types=parseTypes();
+  const hint=selType?(types.find(t=>t.name===selType)||{}).hint:null;
   $('#main').innerHTML=`
-  <div class="card"><h2>Apuntar mi día — ${esc(me?me.name:'')}</h2>
+  <div class="card"><h2>${ic('activity')} Registrar actividad — ${esc(me?me.name:'')}</h2>
     <label>Fecha</label><input type="date" id="aDay" value="${today}" max="${today}" min="${isoDay(weekStart(Math.max(w,0)))}">
-    <label>Nivel (por coste de agenda — consulta las normas de tu liga)</label>
-    <div class="row">
-      <button class="btn lvl sec" onclick="logDay(1)">🥉<br><span class="msg">1 Move</span></button>
-      <button class="btn lvl sec" onclick="logDay(2)">🥈<br><span class="msg">2 Moves</span></button>
-      <button class="btn lvl sec" onclick="logDay(3)">🥇<br><span class="msg">3 Moves</span></button>
+    <label>Tipo de actividad</label>
+    <div class="typegrid">${types.map(t=>`<button class="typebtn ${selType===t.name?'on':''}" onclick="setType('${esc(t.name)}')">${esc(t.name)}</button>`).join('')}</div>
+    ${hint?`<p class="msg" style="margin-top:6px">Niveles: ${esc(hint)}</p>`:''}
+    <label>Nivel</label>
+    <div class="medgrid">
+      ${[1,2,3].map(l=>`<button class="medbtn ${selLevel===l?'on':''}" onclick="setLevel(${l})">${medalSVG(l,24)}${['Bronce · 1 Move','Plata · 2 Moves','Oro · 3 Moves'][l-1]}</button>`).join('')}
     </div>
-    <label>¿Qué has hecho? (visible para todos)</label><input id="aWhat" placeholder="Correr 6k / gym / pádel…">
+    <label>Nota (opcional, visible para todos)</label><input id="aWhat" placeholder="p. ej. 6k por el río">
     ${cfg.quedada?`<label style="margin-top:8px"><input type="checkbox" id="aQuedada" style="width:auto"> Actividad conjunta (+1 Move)</label>`:''}
+    <button class="btn full" onclick="registrar()">Registrar actividad</button>
     <div class="err" id="aErr"></div>
   </div>
-  <div class="card"><h2>Mi semana</h2>
+  <div class="card"><h2>${ic('calendar')} Mi semana</h2>
     ${myActs.length?`<table><tr><th>Día</th><th>Nivel</th><th>Actividad</th><th></th></tr>${
-      myActs.map(a=>`<tr><td>${a.day.slice(5)}</td><td class="medal">${['','🥉','🥈','🥇'][a.level]}${a.quedada?' ✚':''}</td><td>${esc(a.activity||'')}</td>
-      <td><button class="btn sec" style="padding:4px 8px;margin:0" onclick="delDay('${a.day}')">✕</button></td></tr>`).join('')}</table>`
+      myActs.map(a=>`<tr><td>${a.day.slice(5)}</td><td>${medalSVG(a.level,18)}${a.quedada?' <span class="pill">✚</span>':''}</td><td style="font-size:12.5px">${esc(a.activity||'')}</td>
+      <td><button class="flagbtn" onclick="delDay('${a.day}')">${ic('x',15)}</button></td></tr>`).join('')}</table>`
       :'<p class="msg">Aún nada esta semana. Your move.</p>'}
-  </div>`+btnBar(true);
-}
-function pickPlayer(backTab){
-  $('#main').innerHTML=`
-  <div class="card"><h2>¿Quién eres?</h2>
-    <div class="row" style="margin-top:8px">${L.players.map(p=>
-      `<button class="btn sec" onclick="pick('${p.id}',${p.has_pin})">${esc(p.name)}${catBadge(p)}</button>`).join('')}</div>
-    <div id="pinBox"></div>
   </div>`+btnBar();
-  window.pick=(id,hasPin)=>{
-    $('#pinBox').innerHTML=`
-      <label>${hasPin?'Tu PIN':'Crea un PIN (opcional, evita que otros apunten por ti)'}</label>
-      <input id="pPin" type="password" maxlength="8">
-      <button class="btn" onclick="confirmPick('${id}','${backTab}')">Confirmar</button>`;
-  };
 }
-function confirmPick(id,backTab){
-  MEM[CUR]={playerId:id,pin:$('#pPin').value||null}; saveMem(); TAB=backTab||'apuntar'; render();
-}
-async function logDay(level){
+function setType(t){ selType=selType===t?null:t; render(); }
+function setLevel(l){ selLevel=selLevel===l?0:l; render(); }
+async function registrar(){
   const s=ses(); $('#aErr').textContent='';
+  if(!selLevel){ $('#aErr').textContent='Elige el nivel (bronce, plata u oro).'; return; }
+  const nota=$('#aWhat').value.trim();
+  const texto=(selType||'')+(nota?(selType?' — ':'')+nota:'');
   try{
     const {error}=await sb.rpc('log_activity',{p_code:CUR,p_player:s.playerId,p_pin:s.pin,
-      p_day:$('#aDay').value,p_level:level,p_activity:$('#aWhat').value.trim()||null,
+      p_day:$('#aDay').value,p_level:selLevel,p_activity:texto||null,
       p_quedada:$('#aQuedada')?$('#aQuedada').checked:false});
     if(error) throw error;
-    await refresh();
-  }catch(e){ $('#aErr').textContent=e.message||'Error al apuntar'; }
+    selType=null; selLevel=0;
+    await refresh(); TAB='jornada'; render();
+  }catch(e){ $('#aErr').textContent=e.message||'Error al registrar'; }
 }
 async function delDay(day){
   const s=ses();
@@ -447,49 +528,102 @@ async function delDay(day){
     await refresh();
   }catch(e){ alert(e.message||'Error'); }
 }
-
-/* ---- pestaña MI DUELO ---- */
-function tDuelo(){
-  const s=ses(), w=weekIdx(), cfg=L.league.config;
-  if(!s){ pickPlayer('duelo'); return; }
-  if(w<0||w>=cfg.weeks){ $('#main').innerHTML=`<div class="card"><p class="msg">${w<0?'La liga aún no ha empezado.':'La liga ha terminado.'}</p></div>`+btnBar(); return; }
-  const me=L.players.find(p=>p.id===s.playerId);
-  const pair=pairsFor(w).find(([a,b])=>a===me.name||b===me.name);
-  if(!pair){ $('#main').innerHTML=`<div class="card"><p class="msg">Esta semana descansas.</p></div>`+btnBar(); return; }
-  const rivalName=pair[0]===me.name?pair[1]:pair[0];
-  const rival=byName(rivalName);
-  const ma=movesOfWeek(me.id,w);
-  const mb=rival?movesOfWeek(rival.id,w):Math.round((L.players.map(p=>movesOfWeek(p.id,w)).sort((a,b)=>a-b))[Math.floor(L.players.length/2)]||0);
-  const pA=Math.round(serieProb(ma,mb)*100);
-  const r=(L.rounds||[]).find(x=>x.number===w+1);
-  let resHtml='';
-  if(r){ const d=(r.data.duels||[]).find(x=>x.a===pair[0]&&x.b===pair[1]);
-    if(d) resHtml=`<p class="ok" style="margin-top:10px">Jornada resuelta: ${d.nulo?'duelo nulo':`ganó <b>${esc(d.winner)}</b> ${d.score}`}.</p>`; }
+function pickPlayer(backTab){
   $('#main').innerHTML=`
-  <div class="card"><h2>Jornada ${w+1} · mi duelo</h2>
-    <div class="duelbox">
-      <div class="duelnames"><span style="color:var(--acc)">${esc(me.name)}</span><span style="color:var(--acc2)">${esc(rivalName)}</span></div>
-      <div class="duelmoves"><span>${ma} Moves</span><span>${mb} Moves</span></div>
-      <div class="bar"><div class="l" style="width:${pA}%"></div><div class="r" style="width:${100-pA}%"></div></div>
-      <div class="pcts"><span style="color:var(--acc)">${pA} %</span><span style="color:var(--acc2)">${100-pA} %</span></div>
-      <p class="msg" style="margin-top:8px">Duelo vivo hasta el domingo. ${pA>=50?'No te relajes':'Aún hay bola'} 👀</p>
-      ${resHtml}
-    </div>
-  </div>`+btnBar(true);
+  <div class="card"><h2>${ic('users')} ¿Quién eres?</h2>
+    <div class="row" style="margin-top:8px">${L.players.map(p=>
+      `<button class="btn sec" onclick="pick('${p.id}',${p.has_pin})">${esc(p.name)}${catBadge(p)}</button>`).join('')}</div>
+    <div id="pinBox"></div>
+  </div>`+btnBar();
+  window.pick=(id,hasPin)=>{
+    $('#pinBox').innerHTML=`
+      <label>${hasPin?'Tu PIN':'Crea un PIN (opcional, evita que otros registren por ti)'}</label>
+      <input id="pPin" type="password" maxlength="8">
+      <button class="btn" onclick="confirmPick('${id}','${backTab}')">Confirmar</button>`;
+  };
+}
+function confirmPick(id,backTab){
+  MEM[CUR]={playerId:id,pin:$('#pPin').value||null}; saveMem(); TAB=backTab||'moves'; render();
 }
 
-/* ---- pestaña ADMIN ---- */
+/* ---- LIGA ---- */
+function tLiga(){
+  const cfg=L.league.config, w=weekIdx(), s=ses();
+  const nP=L.players.length, umbral=Math.ceil(nP*0.3);
+  let h=`<div class="card"><h2>${ic('trophy')} Clasificación</h2>${clasifHTML()}</div>`;
+  // calendario
+  h+=`<div class="card"><h2>${ic('calendar')} Calendario</h2>`;
+  for(let j=0;j<cfg.weeks;j++){
+    const r=(L.rounds||[]).find(x=>x.number===j+1);
+    const hidden=cfg.oculto&&!r&&j!==Math.max(w,0);
+    h+=`<p style="margin:8px 0 4px;font-weight:700;font-size:12px;color:var(--dim)">JORNADA ${j+1} ${r?'· resuelta':(j===w?'· en curso':'')} ${hidden?'· oculta':''}</p>`;
+    if(hidden) continue;
+    pairsFor(j).forEach(([a,b])=>{
+      let sc='vs';
+      if(r){ const d=(r.data.duels||[]).find(x=>x.a===a&&x.b===b); if(d) sc=d.nulo?'nulo':`<span style="color:var(--win);font-weight:700">${esc(d.winner)}</span> ${d.score}`; }
+      h+=`<div class="feeditem"><span class="fi">${esc(a)}</span><span class="msg">${sc}</span><span class="fi" style="text-align:right">${esc(b)}</span></div>`;
+    });
+  }
+  h+=`</div>`;
+  // track
+  const feed=[...L.activities].sort((a,b)=>a.day<b.day?1:-1).slice(0,25);
+  h+=`<div class="card"><h2>${ic('activity')} Track de la liga</h2>${feed.length?feed.map(a=>{
+    const p=L.players.find(x=>x.id===a.player_id);
+    const disputed=(a.reports||0)>=umbral;
+    const mine=s&&a.player_id===s.playerId;
+    return `<div class="feeditem">
+      <span>${medalSVG(a.level,18)}</span>
+      <span class="fi"><b>${esc(p?p.name:'?')}</b> · ${a.day.slice(5)}${a.quedada?' <span class="pill">✚</span>':''}${a.adj?` <span class="pill">${a.adj>0?'+':''}${a.adj}</span>`:''}<br><span class="msg">${esc(a.activity||'')}</span>
+      ${disputed?`<br><span class="disputed">EN DISPUTA (${a.reports} reportes) — pendiente del admin</span>`:''}</span>
+      ${(!mine&&s)?`<button class="flagbtn ${(a.reports||0)>0?'rep':''}" title="Reportar (anónimo)" onclick="reportAct('${a.id}')">${ic('flag',15)}${(a.reports||0)>0?`<span style="font-size:10px">${a.reports}</span>`:''}</button>`:''}
+    </div>`;
+  }).join(''):'<p class="msg">Nada aún. Your move.</p>'}
+  <p class="msg" style="margin-top:8px">El reporte es anónimo (1 por persona). Con ${umbral}+ reportes la actividad queda en disputa y decide el grupo/admin.</p></div>`;
+  // normas + registro (plegados)
+  h+=`<details><summary>Normas de la liga</summary><div class="card">
+    ${cfg.prize?`<p class="msg"><b>Premio:</b> ${esc(cfg.prize)}</p>`:''}
+    <p class="msg" style="margin-top:6px;white-space:pre-wrap">${esc(cfg.levels||PLANTILLA_DEF)}</p>
+    <p class="msg" style="margin-top:6px">Máx. ${cfg.maxDays} días/semana · ${cfg.bonusDay>0?`bonus +1 Move al llegar al día ${cfg.bonusDay}`:'sin bonus de regularidad'} · ${cfg.quedada?'actividad conjunta +1 Move':'sin actividad conjunta'} · calendario ${cfg.oculto?'con rival oculto':'público'} · victoria 3 pts · derrota con 4+ días 1 pt.</p></div></details>`;
+  const log=(L.league.log||[]).slice().reverse();
+  h+=`<details><summary>Registro del administrador</summary><div class="card">${log.length?log.map(x=>
+    `<div class="logi">${(x.at||'').slice(0,16).replace('T',' ')} — ${esc(x.action)}${x.reason?` · <i>${esc(x.reason)}</i>`:''}</div>`).join(''):'<p class="msg">Sin cambios.</p>'}</div></details>`;
+  $('#main').innerHTML=h+btnBar();
+}
+async function reportAct(id){
+  const s=ses(); if(!s){ alert('Identifícate primero en Moves.'); return; }
+  if(!confirm('¿Reportar esta actividad? El reporte es anónimo y no se puede retirar.')) return;
+  try{
+    const {error}=await sb.rpc('report_activity',{p_code:CUR,p_player:s.playerId,p_pin:s.pin,p_activity:id});
+    if(error) throw error;
+    await refresh();
+  }catch(e){ alert(e.message||'Error'); }
+}
+
+/* ---- ADMIN ---- */
 function tAdmin(){
   const cfg=L.league.config, w=weekIdx();
   const unresolved=[]; for(let j=0;j<cfg.weeks;j++){ if(!(L.rounds||[]).find(x=>x.number===j+1)) unresolved.push(j+1); }
+  const weeksOpts=[]; for(let j=0;j<cfg.weeks;j++) weeksOpts.push(j);
   $('#main').innerHTML=`
-  <div class="card"><h2>🎳 Resolver jornada</h2>
-    <p class="msg">Jornada en curso: ${w>=0&&w<cfg.weeks?w+1:'—'}. Puedes resolver cualquier jornada pendiente (quedará registrado y es irreversible).</p>
+  <div class="card"><h2>${ic('zap')} Resolver jornada</h2>
+    <p class="msg">En curso: ${w>=0&&w<cfg.weeks?w+1:'—'}. Resolver es definitivo e irreversible.</p>
     <label>Jornada</label><select id="rJor">${unresolved.map(j=>`<option ${j===w+1?'selected':''}>${j}</option>`).join('')}</select>
-    <button class="btn" onclick="resolverJornada()">Resolver con sorteo en directo</button>
+    <button class="btn" onclick="resolverJornada()">Resolver con el sorteo en directo</button>
     <div class="err" id="rErr"></div>
   </div>
-  <div class="card"><h2>⚙️ Configuración (todo cambio queda registrado)</h2>
+  <div class="card"><h2>${ic('users')} Entrada rápida de Moves (simulación / migración)</h2>
+    <p class="msg">Escribe la semana entera de un participante de golpe. Sobrescribe lo que hubiera esa semana y queda en el registro público.</p>
+    <label>Participante</label><select id="qPlayer">${L.players.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select>
+    <label>Jornada</label><select id="qWeek">${weeksOpts.map(j=>`<option value="${j}" ${j===Math.max(w,0)?'selected':''}>J${j+1} (semana del ${isoDay(weekStart(j))})</option>`).join('')}</select>
+    <div class="row">
+      <div style="flex:1"><label>🥉 Bronces</label><input type="number" id="qB" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>🥈 Platas</label><input type="number" id="qS" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>🥇 Oros</label><input type="number" id="qG" value="0" min="0" max="7"></div>
+      <div style="flex:1"><label>✚ Quedadas</label><input type="number" id="qQ" value="0" min="0" max="7"></div>
+    </div>
+    <button class="btn sec" onclick="quickWeek()">Aplicar semana</button><div class="err" id="qErr"></div>
+  </div>
+  <div class="card"><h2>${ic('settings')} Configuración (todo cambio queda registrado)</h2>
     <label>Premio / motivación</label><input id="ePrize" value="${esc(cfg.prize||'')}">
     <label>Fecha de inicio</label><input type="date" id="eStart" value="${cfg.start}">
     <div class="row">
@@ -499,11 +633,11 @@ function tAdmin(){
     </div>
     <label style="margin-top:10px"><input type="checkbox" id="eQuedada" ${cfg.quedada?'checked':''} style="width:auto"> Actividad conjunta</label>
     <label><input type="checkbox" id="eOculto" ${cfg.oculto?'checked':''} style="width:auto"> Rival oculto</label>
-    <label>Niveles por actividad</label><textarea id="eLevels" style="min-height:130px">${esc(cfg.levels||PLANTILLA_DEF)}</textarea>
+    <label>Actividades y niveles</label><textarea id="eLevels" style="min-height:130px">${esc(cfg.levels||PLANTILLA_DEF)}</textarea>
     <label>Motivo del cambio (visible para toda la liga)</label><input id="eReason" placeholder="p. ej. ajustamos el umbral de correr">
     <button class="btn" onclick="saveConfig()">Guardar cambios</button><div class="err" id="eErr"></div>
   </div>
-  <div class="card"><h2>± Ajuste de Moves (con motivo público)</h2>
+  <div class="card"><h2>${ic('flag')} Ajuste de Moves (con motivo público)</h2>
     <label>Participante</label><select id="jPlayer">${L.players.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select>
     <div class="row">
       <div style="flex:1"><label>Día</label><input type="date" id="jDay" value="${isoDay(new Date())}"></div>
@@ -512,6 +646,16 @@ function tAdmin(){
     <label>Motivo</label><input id="jReason" placeholder="p. ej. ganó los bolos de la quedada">
     <button class="btn sec" onclick="doAdjust()">Aplicar ajuste</button><div class="err" id="jErr"></div>
   </div>`+btnBar();
+}
+async function quickWeek(){
+  try{
+    const {error}=await sb.rpc('admin_set_week',{p_code:CUR,p_player:$('#qPlayer').value,
+      p_week_start:isoDay(weekStart(parseInt($('#qWeek').value))),
+      p_bronze:parseInt($('#qB').value)||0,p_silver:parseInt($('#qS').value)||0,
+      p_gold:parseInt($('#qG').value)||0,p_quedadas:parseInt($('#qQ').value)||0});
+    if(error) throw error;
+    await refresh();
+  }catch(e){ $('#qErr').textContent=e.message; }
 }
 async function saveConfig(){
   const patch={ prize:$('#ePrize').value.trim(), start:$('#eStart').value,
@@ -557,7 +701,7 @@ async function resolverJornada(){
   }catch(e){ $('#rErr').textContent=e.message; }
 }
 
-/* ---- PONG ---- */
+/* ---- PONG (sin autogoles) ---- */
 async function playPong(jNum,duels){
   const ov=$('#ov'); let skip=false;
   const sleep=ms=>new Promise(r=>setTimeout(r,skip?30:ms));
@@ -568,8 +712,8 @@ async function playPong(jNum,duels){
     const cls=p=>p>50?'pcW':(p<50?'pcL':'pcN');
     ov.innerHTML=`<div class="prog">Jornada ${jNum} · duelo ${i+1} de ${duels.length} · al mejor de 3</div>
       <div class="intro">
-        <div style="text-align:left"><div class="pName" style="color:var(--acc)">${esc(d.a)}</div><div class="pMeta">${d.ma} Moves · <span class="pc ${cls(pA)}">${pA} %</span></div></div>
-        <div style="text-align:right"><div class="pName" style="color:var(--acc2)">${esc(d.b)}</div><div class="pMeta">${d.mb} Moves · <span class="pc ${cls(pB)}">${pB} %</span></div></div>
+        <div style="text-align:left"><div class="pName" style="color:var(--duelA)">${esc(d.a)}</div><div class="pMeta">${d.ma} Moves · <span class="pc ${cls(pA)}">${pA} %</span></div></div>
+        <div style="text-align:right"><div class="pName" style="color:var(--duelB)">${esc(d.b)}</div><div class="pMeta">${d.mb} Moves · <span class="pc ${cls(pB)}">${pB} %</span></div></div>
       </div>
       <div class="court" id="court"><div class="net"></div>
         <div class="paddle A" id="padA"></div><div class="paddle B" id="padB"></div>
@@ -584,9 +728,9 @@ async function playPong(jNum,duels){
     const court=$('#court'), W=court.clientWidth||440;
     const LX=26, RX=W-42, MIDX=(W-16)/2;
     let sc={A:0,B:0};
-    for(const r of d.draws){                       // r = quien GANA la extracción
-      const rally=3+Math.floor(Math.random()*4);   // 3-6 golpes antes del fallo
-      let side=Math.random()<.5?'A':'B';           // saque aleatorio
+    for(const r of d.draws){
+      const rally=2+Math.floor(Math.random()*4);      // 2-5 golpes limpios
+      let side=Math.random()<.5?'A':'B';
       ball.style.transition='none'; ball.style.left=MIDX+'px'; ball.style.top='92px';
       await sleep(320);
       ball.style.transition='left .5s linear, top .5s ease';
@@ -597,14 +741,18 @@ async function playPong(jNum,duels){
         side=side==='A'?'B':'A';
         await sleep(520);
       }
-      // el punto lo gana r → falla el otro: la bola pasa de largo por su lado
+      // punto para r: la bola sale SIEMPRE desde el campo del ganador…
       const loser=r==='A'?'B':'A';
-      const y=20+Math.random()*150;
-      (loser==='A'?padA:padB).style.top=(y>95?20:130)+'px';   // la pala va al lado equivocado
-      ball.style.left=(loser==='A'?-30:W+14)+'px'; ball.style.top=y+'px';
+      const yHit=20+Math.random()*150;
+      ball.style.left=(r==='A'?LX:RX)+'px'; ball.style.top=yHit+'px';        // golpe del ganador
+      (r==='A'?padA:padB).style.top=Math.max(0,Math.min(148,yHit-22))+'px';
+      await sleep(520);
+      const yMiss=20+Math.random()*150;
+      (loser==='A'?padA:padB).style.top=(yMiss>95?10:135)+'px';               // el perdedor va al lado equivocado
+      ball.style.left=(loser==='A'?-30:W+14)+'px'; ball.style.top=yMiss+'px'; // …y cruza la pista entera
       sc[r]++; await sleep(560);
       $('#pscore').textContent=sc.A+' – '+sc.B;
-      await sleep(700);
+      await sleep(650);
     }
     $('#pres').innerHTML=`🏆 <span class="w">${esc(d.winner)}</span> gana ${d.score}`;
     await sleep(2400);
@@ -614,12 +762,13 @@ async function playPong(jNum,duels){
 
 /* ============ VARIOS ============ */
 function btnBar(){
-  return `<div class="row" style="margin-bottom:20px">
-    <button class="btn sec" onclick="refresh()">🔄 Actualizar</button>
-    <button class="btn sec" onclick="exitLeague()">Salir de la liga</button></div>`;
+  return `<div class="row" style="margin-bottom:8px">
+    <button class="btn sec" onclick="refresh()">${ic('refresh')} Actualizar</button>
+    <button class="btn sec" onclick="exitLeague()">${ic('logout')} Salir de la liga</button></div>`;
 }
 
 /* ============ ARRANQUE ============ */
+buildNav();
 (async ()=>{
   const {data}=await sb.auth.getUser();
   USER=data?data.user:null;
