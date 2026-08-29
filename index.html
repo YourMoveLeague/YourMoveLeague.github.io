@@ -16,30 +16,33 @@
   :root{--bg:#0e1420;--card:#1a2332;--card2:#212d40;--line:#2e3d55;--text:#e8edf5;
     --dim:#8fa1bd;--acc:#ffb830;--acc2:#4da3ff;--win:#3ddc84;--lose:#ff5d5d;}
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;padding-bottom:50px;}
-  header{padding:16px;text-align:center;border-bottom:1px solid var(--line);}
-  header h1{font-size:20px;color:var(--acc);letter-spacing:.5px;}
+  body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;padding-bottom:44px;}
+  header{padding:14px;text-align:center;border-bottom:1px solid var(--line);}
+  header h1{font-size:19px;color:var(--acc);letter-spacing:.5px;}
   header .sub{color:var(--dim);font-size:12px;margin-top:2px;}
+  nav{display:flex;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5;}
+  nav button{flex:1;background:none;border:none;color:var(--dim);padding:11px 2px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;}
+  nav button.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:600;}
   main{max-width:560px;margin:0 auto;padding:14px;}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;}
   .card h2{font-size:15px;margin-bottom:10px;color:var(--acc2);}
   label{display:block;color:var(--dim);font-size:12px;margin:10px 0 4px;}
-  input,textarea,select{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font-size:14px;}
-  textarea{min-height:120px;font-family:inherit;}
-  .btn{display:inline-block;background:var(--acc);color:#1a1400;border:none;border-radius:8px;padding:11px 18px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;}
+  input,textarea,select{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px;font-size:16px;}
+  textarea{min-height:110px;font-family:inherit;}
+  .btn{display:inline-block;background:var(--acc);color:#1a1400;border:none;border-radius:8px;padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;margin-top:12px;}
   .btn.sec{background:var(--card2);color:var(--text);border:1px solid var(--line);}
-  .btn.lvl{font-size:15px;padding:12px 10px;flex:1;margin-top:0;}
-  .btn:disabled{opacity:.45;cursor:default;}
+  .btn.lvl{font-size:15px;padding:12px 8px;flex:1;margin-top:0;}
+  .btn.danger{background:var(--lose);color:#fff;}
   .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
   .msg{color:var(--dim);font-size:13px;line-height:1.5;}
   .err{color:var(--lose);font-size:13px;margin-top:8px;min-height:16px;}
+  .ok{color:var(--win);font-size:13px;margin-top:8px;}
   .big{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--acc);}
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
   th{color:var(--dim);font-weight:600;text-align:left;padding:6px;border-bottom:1px solid var(--line);font-size:12px;}
   td{padding:7px 6px;border-bottom:1px solid var(--line);}
   tr:last-child td{border-bottom:none;}
   .num{text-align:center;}
-  /* Duelo en vivo */
   .duelbox{background:var(--card2);border-radius:12px;padding:14px;}
   .duelnames{display:flex;justify-content:space-between;font-weight:800;font-size:16px;}
   .duelmoves{display:flex;justify-content:space-between;color:var(--dim);font-size:13px;margin:4px 0 10px;}
@@ -47,50 +50,100 @@
   .bar .l{background:var(--acc);transition:width .8s ease;}
   .bar .r{background:var(--acc2);transition:width .8s ease;}
   .pcts{display:flex;justify-content:space-between;font-weight:800;margin-top:6px;}
-  .medal{font-size:18px;}
-  .pill{display:inline-block;font-size:11px;border-radius:20px;padding:1px 8px;background:var(--card2);border:1px solid var(--line);color:var(--dim);margin-left:6px;vertical-align:middle;}
+  .medal{font-size:17px;}
+  .pill{display:inline-block;font-size:11px;border-radius:20px;padding:1px 8px;background:var(--card2);border:1px solid var(--line);color:var(--dim);margin-left:5px;vertical-align:middle;}
   .whats{background:#0b2a1e;border:1px solid #1d5c40;border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap;margin-top:10px;}
+  .logi{border-left:2px solid var(--line);padding:4px 10px;margin:6px 0;font-size:12.5px;color:var(--dim);}
   a{color:var(--acc2);}
-  footer{position:fixed;bottom:0;left:0;right:0;text-align:center;padding:7px;font-size:11px;color:var(--dim);background:var(--bg);border-top:1px solid var(--line);}
+  .duel{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border-radius:10px;padding:9px 12px;margin-bottom:7px;font-size:14px;}
+  .duel .sc{padding:0 10px;font-weight:800;color:var(--acc);white-space:nowrap;font-size:13px;}
+  .duel .w{color:var(--win);font-weight:700;}
+  footer{position:fixed;bottom:0;left:0;right:0;text-align:center;padding:5px;font-size:9.5px;color:var(--dim);background:var(--bg);border-top:1px solid var(--line);}
+  /* modales */
+  .modal{display:none;position:fixed;inset:0;background:rgba(5,8,14,.97);z-index:60;overflow-y:auto;padding:20px;}
+  .modal.show{display:block;}
+  /* pong */
+  #ov{position:fixed;inset:0;background:rgba(5,8,14,.98);z-index:70;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;}
+  #ov.show{display:flex;}
+  #ov .prog{color:var(--dim);font-size:12px;margin-bottom:8px;}
+  .pName{font-size:17px;font-weight:800;}
+  .pMeta{color:var(--dim);font-size:12.5px;margin-top:2px;}
+  .pc{font-weight:800;} .pcW{color:var(--win);} .pcL{color:var(--lose);} .pcN{color:var(--dim);}
+  .intro{display:flex;justify-content:space-between;width:100%;max-width:440px;}
+  .court{position:relative;width:100%;max-width:440px;height:200px;background:var(--card);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden;}
+  .net{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:2px dashed var(--line);}
+  .paddle{position:absolute;width:8px;height:52px;border-radius:4px;top:74px;transition:top .35s ease;}
+  .paddle.A{left:10px;background:var(--acc);}
+  .paddle.B{right:10px;background:var(--acc2);}
+  .pball{position:absolute;width:16px;height:16px;border-radius:50%;background:#dfe6ef;box-shadow:0 0 10px rgba(255,255,255,.35);transition:left .5s linear, top .5s ease;}
+  #pscore{font-size:26px;font-weight:900;color:var(--acc);min-height:32px;}
+  #pres{font-size:17px;font-weight:800;min-height:24px;margin:6px 0 14px;}
+  #pres .w{color:var(--win);}
 </style>
 </head>
 <body>
 <header><h1>🏆 YOUR MOVE LEAGUE</h1><div class="sub" id="hSub">Cada día cuenta. Nada está garantizado.</div></header>
+<nav id="nav" style="display:none">
+  <button data-t="liga">Liga</button>
+  <button data-t="apuntar">Apuntar</button>
+  <button data-t="duelo">Mi duelo</button>
+  <button data-t="admin" id="tabAdmin" style="display:none">Admin</button>
+</nav>
 <main id="main"><div class="card"><p class="msg">Cargando…</p></div></main>
-<footer>© 2026 Your Move Game Labs · <a href="mailto:soporte@yourmoveleague.com">soporte</a> · <a href="#" onclick="vPriv();return false">privacidad</a></footer>
-<div id="priv" style="display:none;position:fixed;inset:0;background:rgba(5,8,14,.97);z-index:60;overflow-y:auto;padding:24px">
-  <div style="max-width:560px;margin:0 auto" class="card">
-    <h2>Aviso de privacidad</h2>
-    <div class="msg" style="font-size:13px">
-    <p><b>Responsable:</b> Your Move Game Labs (Your Move League) · contacto: soporte@yourmoveleague.com.</p>
-    <p style="margin-top:8px"><b>Qué datos tratamos:</b> el correo del administrador de cada liga (como contacto), los nombres de los participantes tal y como los introduce su administrador, las actividades deportivas que cada participante registra (fecha, nivel, descripción) y un PIN opcional de acceso. No recogemos ubicación ni datos de dispositivos.</p>
-    <p style="margin-top:8px"><b>Para qué:</b> exclusivamente para el funcionamiento de la liga (clasificaciones, duelos y sorteos) y para estadísticas internas agregadas y anónimas de mejora del juego. No vendemos ni cedemos datos a terceros.</p>
-    <p style="margin-top:8px"><b>Dónde:</b> los datos se almacenan en Supabase (servidores en la Unión Europea), que actúa como proveedor técnico.</p>
-    <p style="margin-top:8px"><b>Tus derechos:</b> puedes pedir acceso, corrección o borrado de tus datos escribiendo a soporte@yourmoveleague.com. Si eres participante, tu administrador también puede corregir tus datos dentro de la liga.</p>
-    <p style="margin-top:8px"><b>PIN:</b> el PIN es un código de conveniencia para tu liga, no una contraseña de seguridad: no reutilices contraseñas que uses en otros servicios.</p>
-    <p style="margin-top:8px"><b>Almacenamiento local:</b> la web guarda en tu navegador (localStorage) tu código de liga y tu selección de participante, solo para no pedírtelos cada vez. No usamos cookies de seguimiento ni publicidad.</p>
-    </div>
-    <button class="btn sec" onclick="document.getElementById('priv').style.display='none'">Cerrar</button>
+<footer>© 2026 Your Move Game Labs · <a href="#" onclick="vSup();return false">soporte</a> · <a href="#" onclick="vPriv();return false">privacidad</a></footer>
+
+<div id="priv" class="modal"><div style="max-width:560px;margin:0 auto" class="card">
+  <h2>Aviso de privacidad</h2>
+  <div class="msg" style="font-size:13px">
+  <p><b>Responsable:</b> Your Move Game Labs (Your Move League) · contacto: soporte@yourmoveleague.com.</p>
+  <p style="margin-top:8px"><b>Qué datos tratamos:</b> el correo y contraseña del administrador de cada liga (gestión de acceso), los nombres de los participantes tal y como los introduce su administrador, las actividades deportivas registradas (fecha, nivel, descripción) y un PIN opcional. No recogemos ubicación ni datos de dispositivos.</p>
+  <p style="margin-top:8px"><b>Para qué:</b> exclusivamente el funcionamiento de la liga (clasificaciones, duelos, sorteos) y estadísticas internas agregadas y anónimas. No vendemos ni cedemos datos a terceros.</p>
+  <p style="margin-top:8px"><b>Dónde:</b> Supabase (servidores en la Unión Europea), como proveedor técnico.</p>
+  <p style="margin-top:8px"><b>Tus derechos:</b> acceso, corrección o borrado escribiendo a soporte@yourmoveleague.com.</p>
+  <p style="margin-top:8px"><b>PIN y contraseña:</b> no reutilices contraseñas de otros servicios.</p>
+  <p style="margin-top:8px"><b>Almacenamiento local:</b> guardamos en tu navegador tu código de liga y participante para no pedírtelos cada vez. Sin cookies de seguimiento ni publicidad.</p>
   </div>
-</div>
+  <button class="btn sec" onclick="closeModal('priv')">Cerrar</button>
+</div></div>
+
+<div id="sup" class="modal"><div style="max-width:420px;margin:40px auto" class="card">
+  <h2>Soporte</h2>
+  <p class="msg">Bugs, dudas y sugerencias (¡se leen todas!):</p>
+  <div class="big" style="font-size:16px;margin-top:8px;user-select:all">soporte@yourmoveleague.com</div>
+  <div class="row"><button class="btn sec" onclick="copyTxt('soporte@yourmoveleague.com','Correo copiado')">📋 Copiar</button>
+  <button class="btn sec" onclick="closeModal('sup')">Cerrar</button></div>
+</div></div>
+
+<div id="ov"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 "use strict";
-/* ================= CONFIG ================= */
+/* ============ CONFIG ============ */
 const SB_URL='https://mbnwujxbckvroitzttgi.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ibnd1anhiY2t2cm9pdHp0dGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5Mjk1MDIsImV4cCI6MjEwMzUwNTUwMn0.1kf0ADGQhYYMRFOWXHE6fdHlolOo3Fanhka3mjTLMBE';
 const sb=window.supabase.createClient(SB_URL,SB_KEY);
-const VERSION='web v0.1';
+const VERSION='web v0.2';
+const PLANTILLA_DEF=
+`Correr: 30 min / 1h30 / 2h
+Caminar: 10.000 pasos / 20.000 / 30.000
+Bici: 45 min / 2h / 3h
+Nadar: 30 min / 1h / 1h30
+Gimnasio o clase dirigida: 1 sesión (45 min) / 2 sesiones / 3 sesiones
+Deporte de equipo o raqueta: partido o entreno 45 min / 2h / torneo
+Esterilla en casa: 45 min / 1h30 / 2h
+(Ⓐ Amateur: umbrales -25 % · Ⓔ Élite: +25 %)`;
 
-/* ================= ESTADO ================= */
-let L=null;            // datos de la liga (get_league)
-let SES=JSON.parse(localStorage.getItem('yml_ses')||'null'); // {code,playerId,pin}
+/* ============ ESTADO ============ */
+let L=null, TAB='liga', USER=null;
+let MEM=JSON.parse(localStorage.getItem('yml_mem')||'{}');   // {code:{playerId,pin}}
+let CUR=localStorage.getItem('yml_cur')||null;               // código de liga activo
 const $=s=>document.querySelector(s);
 const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function saveSes(){ localStorage.setItem('yml_ses',JSON.stringify(SES)); }
+function saveMem(){ localStorage.setItem('yml_mem',JSON.stringify(MEM)); if(CUR)localStorage.setItem('yml_cur',CUR); }
+function ses(){ return CUR&&MEM[CUR]?MEM[CUR]:null; }
 
-/* ================= UTILIDADES DE JUEGO ================= */
+/* ============ JUEGO ============ */
 function roundRobin(names){
   const ps=[...names]; if(ps.length%2) ps.push('La Media');
   const n=ps.length, half=n/2, rest=ps.slice(1), cal=[];
@@ -102,71 +155,126 @@ function roundRobin(names){
   return cal;
 }
 function serieProb(a,b){ if(a+b===0) return .5; const p=a/(a+b); return p*p*(3-2*p); }
-function isoDay(d){ return d.toISOString().slice(0,10); }
+function isoDay(d){ const x=new Date(d); x.setMinutes(x.getMinutes()-x.getTimezoneOffset()); return x.toISOString().slice(0,10); }
 function weekStart(w){ const s=new Date(L.league.config.start+'T00:00:00'); s.setDate(s.getDate()+7*w); return s; }
-function weekIdx(){
-  const s=new Date(L.league.config.start+'T00:00:00');
-  return Math.floor((new Date()-s)/(7*24*3600*1000));
-}
+function weekIdx(){ const s=new Date(L.league.config.start+'T00:00:00'); return Math.floor((new Date()-s)/(7*24*3600*1000)); }
 function actsOfWeek(pid,w){
   const a=isoDay(weekStart(w)), b=isoDay(new Date(weekStart(w).getTime()+6*24*3600*1000));
-  return L.activities.filter(x=>x.player_id===pid&&x.day>=a&&x.day<=b);
+  return L.activities.filter(x=>x.player_id===pid&&x.day>=a&&x.day<=b).sort((x,y)=>x.day<y.day?-1:1);
 }
 function movesOfWeek(pid,w){
-  const acts=actsOfWeek(pid,w), cfg=L.league.config;
-  const capped=acts.slice(0,cfg.maxDays||7);
-  let m=capped.reduce((s,x)=>s+x.level+(x.quedada?1:0)+(x.adj||0),0);
-  if(cfg.bonusDay>0&&capped.length>=cfg.bonusDay) m+=1;
-  return m;
+  const cfg=L.league.config, acts=actsOfWeek(pid,w).slice(0,cfg.maxDays||7);
+  let m=acts.reduce((s,x)=>s+x.level+(x.quedada?1:0)+(x.adj||0),0);
+  if(cfg.bonusDay>0&&acts.length>=cfg.bonusDay) m+=1;
+  return Math.max(0,m);
 }
-function myDuel(w){
-  const cal=L.league.calendar; if(!cal.length) return null;
-  const me=L.players.find(p=>p.id===SES.playerId); if(!me) return null;
-  const pair=cal[w%cal.length].find(([a,b])=>a===me.name||b===me.name);
-  if(!pair) return null;
-  const rivalName=pair[0]===me.name?pair[1]:pair[0];
-  const rival=L.players.find(p=>p.name===rivalName)||{id:null,name:rivalName};
-  return {me,rival};
+function daysOfWeek(pid,w){ return Math.min(actsOfWeek(pid,w).length, L.league.config.maxDays||7); }
+function pairsFor(w){ const c=L.league.calendar; return c.length?c[w%c.length]:[]; }
+function byName(n){ return L.players.find(p=>p.name===n)||null; }
+function catBadge(p){
+  if(!p)return'';
+  if(p.category==='amateur') return ' <span class="pill" title="Amateur: umbrales -25%">Ⓐ</span>';
+  if(p.category==='elite')   return ' <span class="pill" title="Élite: umbrales +25%">Ⓔ</span>';
+  return '';
+}
+function standings(){
+  const st={};
+  L.players.forEach(p=>st[p.name]={name:p.name,cat:p.category,pj:0,v:0,pts:0,dias:0,moves:0});
+  L.players.forEach(p=>{
+    for(let w=0;w<L.league.config.weeks;w++){ st[p.name].dias+=daysOfWeek(p.id,w); st[p.name].moves+=movesOfWeek(p.id,w); }
+  });
+  (L.rounds||[]).forEach(r=>{
+    (r.data.duels||[]).forEach(d=>{
+      [d.a,d.b].forEach(x=>{ if(st[x]) st[x].pj++; });
+      if(d.nulo) return;
+      if(st[d.winner]){ st[d.winner].v++; st[d.winner].pts+=3; }
+      const los=d.winner===d.a?d.b:d.a;
+      const ld=d.winner===d.a?d.days_b:d.days_a;
+      if(st[los]&&ld>=4) st[los].pts+=1;
+    });
+  });
+  return Object.values(st).sort((a,b)=>b.pts-a.pts||b.dias-a.dias||b.moves-a.moves||a.name.localeCompare(b.name));
 }
 
-/* ================= VISTAS ================= */
+/* ============ NAVEGACIÓN ============ */
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{ TAB=b.dataset.t; render(); });
+function closeModal(id){ document.getElementById(id).style.display='none'; document.getElementById(id).classList.remove('show'); }
+function vPriv(){ document.getElementById('priv').classList.add('show'); }
+function vSup(){ document.getElementById('sup').classList.add('show'); }
+function copyTxt(t,msg){
+  const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta);
+  ta.select(); try{ document.execCommand('copy'); alert(msg||'Copiado'); }catch(e){ prompt('Copia:',t); }
+  document.body.removeChild(ta);
+}
+
+/* ============ HOME / AUTH ============ */
 function vHome(){
+  $('#nav').style.display='none';
   $('#hSub').textContent='Cada día cuenta. Nada está garantizado.';
+  const adminBox = USER
+    ? `<p class="msg">Sesión de admin: <b>${esc(USER.email)}</b></p>
+       <div id="mls" class="row" style="margin-top:8px"><span class="msg">Cargando tus ligas…</span></div>
+       <div class="row"><button class="btn" onclick="vCreate()">➕ Crear liga</button>
+       <button class="btn sec" onclick="logoutAdmin()">Cerrar sesión</button></div>`
+    : `<label>Correo</label><input id="aEmail" type="email" autocomplete="email">
+       <label>Contraseña</label><input id="aPass" type="password" autocomplete="current-password">
+       <div class="row"><button class="btn" onclick="loginAdmin()">Entrar</button>
+       <button class="btn sec" onclick="signupAdmin()">Crear cuenta</button></div>
+       <div class="err" id="aErr"></div>`;
   $('#main').innerHTML=`
   <div class="card"><h2>Entrar en mi liga</h2>
     <label>Código de la liga</label><input id="jCode" maxlength="10" style="text-transform:uppercase" placeholder="p. ej. K7KM2X">
-    <button class="btn" onclick="join()">Entrar</button><div class="err" id="jErr"></div>
+    <button class="btn" onclick="openLeague()">Entrar</button><div class="err" id="jErr"></div>
   </div>
-  <div class="card"><h2>Crear una liga nueva</h2>
-    <p class="msg">Eres el admin: configura las reglas, invita con un código y que empiece el juego.</p>
-    <button class="btn sec" onclick="vCreate()">Crear liga</button>
-  </div>`;
+  <div class="card"><h2>Zona de administradores</h2>${adminBox}</div>`;
+  if(USER) loadMyLeagues();
 }
+async function loadMyLeagues(){
+  const {data,error}=await sb.rpc('my_leagues');
+  if(error||!data){ $('#mls').innerHTML='<span class="err">No se pudieron cargar</span>'; return; }
+  $('#mls').innerHTML=data.length
+    ? data.map(l=>`<button class="btn sec" onclick="goLeague('${l.code}')">${esc(l.name)} · ${l.code}</button>`).join('')
+    : '<span class="msg">Aún no tienes ligas.</span>';
+}
+async function loginAdmin(){
+  const {error}=await sb.auth.signInWithPassword({email:$('#aEmail').value,password:$('#aPass').value});
+  if(error){ $('#aErr').textContent=error.message; return; }
+  USER=(await sb.auth.getUser()).data.user; vHome();
+}
+async function signupAdmin(){
+  const {error}=await sb.auth.signUp({email:$('#aEmail').value,password:$('#aPass').value});
+  if(error){ $('#aErr').textContent=error.message; return; }
+  const {error:e2}=await sb.auth.signInWithPassword({email:$('#aEmail').value,password:$('#aPass').value});
+  if(e2){ $('#aErr').textContent=e2.message; return; }
+  USER=(await sb.auth.getUser()).data.user; vHome();
+}
+async function logoutAdmin(){ await sb.auth.signOut(); USER=null; vHome(); }
 
+/* ============ CREAR LIGA ============ */
 function vCreate(){
   const nextMonday=(()=>{const d=new Date();d.setDate(d.getDate()+((8-d.getDay())%7||7));return isoDay(d);})();
   $('#main').innerHTML=`
   <div class="card"><h2>Nueva liga</h2>
     <label>Nombre de la liga</label><input id="cName" placeholder="Liga de la oficina">
-    <label>Premio / motivación (líbrate del último puesto…)</label><input id="cPrize" placeholder="Los 3 últimos invitan a cena casera; el 1.º elige menú">
-    <label>Participantes (uno por línea, mínimo 3). Categoría: añade <b>-</b> al final para Amateur (umbrales -25 %) o <b>+</b> para Élite (+25 %); sin nada = Profesional</label>
-    <textarea id="cPlayers" placeholder="Mario&#10;Alicia -&#10;JC +&#10;…"></textarea>
+    <label>Premio / motivación</label><input id="cPrize" placeholder="Los 3 últimos invitan a cena casera; el 1.º elige menú">
+    <label>Participantes (uno por línea, mín. 3). Añade <b>-</b> = Amateur (-25 %) o <b>+</b> = Élite (+25 %)</label>
+    <textarea id="cPlayers" placeholder="Mario&#10;Alicia -&#10;JC +"></textarea>
+    <label>Niveles por actividad (🥉 / 🥈 / 🥇) — edítalo a gusto de tu liga</label>
+    <textarea id="cLevels" style="min-height:150px">${PLANTILLA_DEF}</textarea>
     <label>Fecha de inicio (lunes de la jornada 1)</label><input type="date" id="cStart" value="${nextMonday}">
     <div class="row">
-      <div style="flex:1"><label>Jornadas</label><input type="number" id="cWeeks" value="12" min="3" max="30"></div>
-      <div style="flex:1"><label>Máx. días/semana</label><select id="cMax"><option>5</option><option selected>6</option><option>7</option></select></div>
+      <div style="flex:1"><label>Jornadas</label><input type="number" id="cWeeks" value="12" min="1" max="40"></div>
+      <div style="flex:1"><label>Máx. días/sem</label><select id="cMax"><option>5</option><option selected>6</option><option>7</option></select></div>
       <div style="flex:1"><label>Bonus regularidad</label><select id="cBonus"><option value="0">No</option><option value="3">Día 3</option><option value="4" selected>Día 4</option><option value="5">Día 5</option></select></div>
     </div>
     <label style="margin-top:12px"><input type="checkbox" id="cQuedada" checked style="width:auto"> Actividad conjunta semanal (+1 Move)</label>
     <label><input type="checkbox" id="cOculto" style="width:auto"> Rival oculto (solo se ve el duelo en curso)</label>
-    <label>Tu correo (solo como contacto de admin)</label><input id="cEmail" type="email" placeholder="tucorreo@ejemplo.com">
-    <p class="msg" style="margin-top:8px">Moves: 🥉 Bronce 1 · 🥈 Plata 2 · 🥇 Oro 3 (según coste de agenda, no rendimiento). Duelos al mejor de 3 bolas.</p>
+    <p class="msg" style="margin-top:8px">Duelos al mejor de 3 · victoria 3 pts · derrota entrenando 4+ días 1 pt · desempate por regularidad.</p>
     <div class="row"><button class="btn" onclick="createLeague()">🚀 Crear liga</button>
     <button class="btn sec" onclick="vHome()">Volver</button></div>
     <div class="err" id="cErr"></div>
   </div>`;
 }
-
 async function createLeague(){
   const lines=$('#cPlayers').value.split('\n').map(x=>x.trim()).filter(Boolean);
   const roster=lines.map(l=>{
@@ -181,146 +289,150 @@ async function createLeague(){
     prize:$('#cPrize').value.trim(), start:$('#cStart').value,
     weeks:parseInt($('#cWeeks').value)||12, maxDays:parseInt($('#cMax').value),
     bonusDay:parseInt($('#cBonus').value), quedada:$('#cQuedada').checked,
-    oculto:$('#cOculto').checked, version:VERSION
+    oculto:$('#cOculto').checked, levels:$('#cLevels').value, version:VERSION
   };
   try{
-    const {data,error}=await sb.rpc('create_league',{p_name:$('#cName').value,p_email:$('#cEmail').value||null,
+    const {data,error}=await sb.rpc('create_league',{p_name:$('#cName').value,p_email:USER?USER.email:null,
       p_config:cfg,p_calendar:roundRobin(players),p_players:roster});
     if(error) throw error;
-    vCreated(data.code,data.admin_code,$('#cName').value,cfg);
+    vCreated(data.code,$('#cName').value,cfg);
   }catch(e){ $('#cErr').textContent=e.message||'Error al crear la liga'; }
 }
-
-function vCreated(code,admin,name,cfg){
+function vCreated(code,name,cfg){
   const url=location.origin+location.pathname;
   const whats=`🏆 ${name.toUpperCase()} — YOUR MOVE LEAGUE\n`+
     (cfg.prize?`🎁 ${cfg.prize}\n`:'')+
-    `\n📲 Apunta tu deporte y mira tu duelo:\n${url}\n🔑 Código: ${code}\n`+
-    `\n📸 Foto instantánea aquí al grupo + apúntate el día en la web.\n`+
-    `🥉 1 Move · 🥈 2 Moves · 🥇 3 Moves\n🎳 Domingo: sorteo de la jornada. Más deporte = más opciones. Garantizado, nada.`;
+    `\n📲 Apunta tu deporte y vigila tu duelo:\n${url}\n🔑 Código: ${code}\n`+
+    `\n📸 Foto instantánea al grupo + apúntate el día en la web.\n`+
+    `🥉 1 Move · 🥈 2 · 🥇 3 (por coste de agenda)\n🎳 Domingo: sorteo de la jornada. Más deporte = más opciones. Garantizado, nada.`;
   $('#main').innerHTML=`
   <div class="card"><h2>¡Liga creada!</h2>
     <label>Código para los participantes</label><div class="big">${esc(code)}</div>
-    <label style="margin-top:14px">Código de ADMIN (⚠️ guárdalo en sitio seguro, no lo compartas)</label><div class="big" style="color:var(--lose)">${esc(admin)}</div>
-    <label style="margin-top:14px">Texto para la descripción del grupo de WhatsApp</label>
+    <p class="msg" style="margin-top:6px">Tú ya eres el admin con tu cuenta — entra en la liga y verás la pestaña Admin.</p>
+    <label style="margin-top:12px">Texto para la descripción del grupo de WhatsApp</label>
     <div class="whats" id="wTxt">${esc(whats)}</div>
-    <div class="row"><button class="btn sec" onclick="copyTxt()">📋 Copiar texto</button>
-    <button class="btn" onclick="vHome()">Ir a entrar</button></div>
+    <div class="row"><button class="btn sec" onclick="copyTxt(document.getElementById('wTxt').textContent,'Texto copiado')">📋 Copiar</button>
+    <button class="btn" onclick="goLeague('${code}')">Ir a la liga</button></div>
   </div>`;
-  window.copyTxt=()=>{ navigator.clipboard?.writeText($('#wTxt').textContent).then(()=>alert('Copiado')).catch(()=>prompt('Copia:',$('#wTxt').textContent)); };
 }
 
-async function join(codeArg){
-  const code=(codeArg||$('#jCode').value).trim().toUpperCase();
-  if(!code){ return; }
+/* ============ ABRIR LIGA ============ */
+async function openLeague(){ const c=$('#jCode').value.trim().toUpperCase(); if(c) goLeague(c); }
+async function goLeague(code){
   try{
     const {data,error}=await sb.rpc('get_league',{p_code:code});
     if(error) throw error;
     if(!data){ if($('#jErr'))$('#jErr').textContent='Código no válido.'; return; }
-    L=data;
-    if(SES&&SES.code===code&&L.players.some(p=>p.id===SES.playerId)){ vDash(); return; }
-    vPick(code);
-  }catch(e){ if($('#jErr'))$('#jErr').textContent=e.message||'Error de conexión'; }
+    L=data; CUR=code.toUpperCase(); saveMem(); TAB='liga'; render();
+  }catch(e){ if($('#jErr'))$('#jErr').textContent=e.message||'Error de conexión'; else alert(e.message); }
 }
-
-function vPick(code){
-  $('#main').innerHTML=`
-  <div class="card"><h2>${esc(L.league.name)}</h2>
-    <p class="msg">¿Quién eres?</p>
-    <div class="row" style="margin-top:10px">${L.players.map(p=>
-      `<button class="btn sec" onclick="pick('${p.id}','${esc(p.name)}',${p.has_pin})">${esc(p.name)}${catBadge(p)}</button>`).join('')}
-    </div>
-    <div id="pinBox"></div>
-  </div>`;
-  window.pick=(id,name,hasPin)=>{
-    $('#pinBox').innerHTML=`
-      <label>${hasPin?'Tu PIN':'Crea un PIN (opcional pero recomendado: evita que otros apunten por ti)'}</label>
-      <input id="pPin" type="password" maxlength="8" placeholder="4 números p. ej.">
-      <button class="btn" onclick="confirmPick('${id}')">Soy ${esc(name)}</button><div class="err" id="pErr"></div>`;
-  };
-  window.confirmPick=(id)=>{
-    SES={code,playerId:id,pin:$('#pPin').value||null}; saveSes(); vDash();
-  };
+async function refresh(){
+  const {data,error}=await sb.rpc('get_league',{p_code:CUR});
+  if(!error&&data){ L=data; render(); }
 }
+function exitLeague(){ L=null; CUR=null; localStorage.removeItem('yml_cur'); vHome(); }
 
-function vDash(){
+/* ============ RENDER LIGA ============ */
+function render(){
+  if(!L){ vHome(); return; }
+  $('#nav').style.display='flex';
+  $('#tabAdmin').style.display=L.league.is_admin?'block':'none';
   const w=weekIdx(), cfg=L.league.config;
-  const me=L.players.find(p=>p.id===SES.playerId);
-  $('#hSub').textContent=L.league.name+' · '+(me?me.name:'');
-  if(w<0){
-    $('#main').innerHTML=`<div class="card"><h2>${esc(L.league.name)}</h2>
-      <p class="msg">La liga empieza el <b>${cfg.start}</b>. Jornada 1 a la vista — ve calentando.</p>
-      ${btnBar()}</div>`;
-    return;
+  $('#hSub').textContent=`${L.league.name} · ${w<0?'empieza '+cfg.start:(w>=cfg.weeks?'liga terminada':'jornada '+(w+1)+' de '+cfg.weeks)}`;
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===TAB));
+  ({liga:tLiga,apuntar:tApuntar,duelo:tDuelo,admin:tAdmin}[TAB]||tLiga)();
+}
+
+/* ---- pestaña LIGA ---- */
+function tLiga(){
+  const cfg=L.league.config, w=weekIdx();
+  const st=standings();
+  let h=`<div class="card"><h2>Clasificación</h2>
+  <table><tr><th>#</th><th>Nombre</th><th class="num">PJ</th><th class="num">V</th><th class="num">Pts</th><th class="num">Días</th></tr>${
+    st.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}${catBadge(byName(s.name))}</td><td class="num">${s.pj}</td><td class="num">${s.v}</td><td class="num"><b>${s.pts}</b></td><td class="num">${s.dias}</td></tr>`).join('')}
+  </table><p class="msg" style="margin-top:6px">Victoria 3 pts · derrota con 4+ días 1 pt · desempate: días acumulados (regularidad) y duelo directo.</p></div>`;
+  // calendario
+  h+=`<div class="card"><h2>Calendario</h2>`;
+  for(let j=0;j<cfg.weeks;j++){
+    const r=(L.rounds||[]).find(x=>x.number===j+1);
+    const hidden=cfg.oculto&&!r&&j!==Math.max(w,0);
+    h+=`<p style="margin:8px 0 4px;font-weight:700;font-size:13px;color:var(--dim)">Jornada ${j+1} ${r?'✅':(j===w?'· en curso':'')} ${hidden?'🔒':''}</p>`;
+    if(hidden) continue;
+    pairsFor(j).forEach(([a,b])=>{
+      let sc='vs';
+      if(r){ const d=(r.data.duels||[]).find(x=>x.a===a&&x.b===b); if(d) sc=d.nulo?'nulo':`<span class="w">${esc(d.winner)}</span> ${d.score}`; }
+      h+=`<div class="duel"><span>${esc(a)}</span><span class="sc">${sc}</span><span>${esc(b)}</span></div>`;
+    });
   }
-  if(w>=cfg.weeks){
-    $('#main').innerHTML=`<div class="card"><h2>🏁 Liga terminada</h2>${btnBar()}</div>`; return;
-  }
-  const duel=myDuel(w);
-  let duelHtml='<p class="msg">Sin duelo esta semana (descansas).</p>';
-  if(duel){
-    const ma=movesOfWeek(duel.me.id,w);
-    const mb=duel.rival.id?movesOfWeek(duel.rival.id,w):0;
-    const pA=Math.round(serieProb(ma,mb)*100);
-    duelHtml=`<div class="duelbox">
-      <div class="duelnames"><span style="color:var(--acc)">${esc(duel.me.name)}</span><span style="color:var(--acc2)">${esc(duel.rival.name)}</span></div>
-      <div class="duelmoves"><span>${ma} Moves</span><span>${mb} Moves</span></div>
-      <div class="bar"><div class="l" style="width:${pA}%"></div><div class="r" style="width:${100-pA}%"></div></div>
-      <div class="pcts"><span style="color:var(--acc)">${pA} %</span><span style="color:var(--acc2)">${100-pA} %</span></div>
-      <p class="msg" style="margin-top:8px">Duelo vivo hasta el domingo. Cada Move mueve la barra — ${pA>=50?'no te relajes':'aún hay bola'} 👀</p>
-    </div>`;
-  }
-  const myActs=actsOfWeek(SES.playerId,w).sort((a,b)=>a.day<b.day?-1:1);
+  h+=`</div>`;
+  // actividad reciente
+  const feed=[...L.activities].sort((a,b)=>a.day<b.day?1:-1).slice(0,15);
+  h+=`<div class="card"><h2>Actividad reciente</h2>${feed.length?feed.map(a=>{
+    const p=L.players.find(x=>x.id===a.player_id);
+    return `<div class="logi"><b style="color:var(--text)">${esc(p?p.name:'?')}</b> · ${a.day} · <span class="medal">${['','🥉','🥈','🥇'][a.level]}</span>${a.quedada?' ✚':''}${a.adj?` <span class="pill">${a.adj>0?'+':''}${a.adj}</span>`:''} ${esc(a.activity||'')}</div>`;
+  }).join(''):'<p class="msg">Nada aún. Your move.</p>'}</div>`;
+  // normas
+  h+=`<div class="card"><h2>Normas de la liga</h2>
+    ${cfg.prize?`<p class="msg">🎁 <b>${esc(cfg.prize)}</b></p>`:''}
+    <p class="msg" style="margin-top:6px;white-space:pre-wrap">${esc(cfg.levels||PLANTILLA_DEF)}</p>
+    <p class="msg" style="margin-top:6px">Máx. ${cfg.maxDays} días/semana · ${cfg.bonusDay>0?`bonus +1 Move al llegar al día ${cfg.bonusDay}`:'sin bonus de regularidad'} · ${cfg.quedada?'actividad conjunta +1 Move':'sin actividad conjunta'} · calendario ${cfg.oculto?'con rival oculto':'público'}.</p></div>`;
+  // historial admin
+  const log=(L.league.log||[]).slice().reverse();
+  h+=`<div class="card"><h2>Registro del administrador</h2>${log.length?log.map(x=>
+    `<div class="logi">${(x.at||'').slice(0,16).replace('T',' ')} — ${esc(x.action)}${x.reason?` · <i>${esc(x.reason)}</i>`:''}</div>`).join(''):'<p class="msg">Sin cambios.</p>'}</div>`;
+  h+=btnBar();
+  $('#main').innerHTML=h;
+}
+
+/* ---- pestaña APUNTAR ---- */
+function tApuntar(){
+  const s=ses(), w=weekIdx(), cfg=L.league.config;
+  if(!s){ pickPlayer('apuntar'); return; }
+  if(w<0){ $('#main').innerHTML=`<div class="card"><p class="msg">La liga empieza el ${cfg.start}. Ve calentando 🔥</p></div>`+btnBar(); return; }
+  const me=L.players.find(p=>p.id===s.playerId);
+  const myActs=actsOfWeek(s.playerId,w);
   const today=isoDay(new Date());
-  const done=myActs.some(a=>a.day===today);
   $('#main').innerHTML=`
-  <div class="card"><h2>Jornada ${w+1} de ${cfg.weeks} · mi duelo</h2>${duelHtml}</div>
-  <div class="card"><h2>Apuntar mi día</h2>
-    <label>Fecha</label><input type="date" id="aDay" value="${today}" max="${today}" min="${isoDay(weekStart(w))}">
-    <label>Nivel (por coste de agenda)</label>
+  <div class="card"><h2>Apuntar mi día — ${esc(me?me.name:'')}</h2>
+    <label>Fecha</label><input type="date" id="aDay" value="${today}" max="${today}" min="${isoDay(weekStart(Math.max(w,0)))}">
+    <label>Nivel (por coste de agenda — consulta las normas de tu liga)</label>
     <div class="row">
-      <button class="btn lvl sec" onclick="logDay(1)">🥉 Bronce<br><span class="msg">1 Move</span></button>
-      <button class="btn lvl sec" onclick="logDay(2)">🥈 Plata<br><span class="msg">2 Moves</span></button>
-      <button class="btn lvl sec" onclick="logDay(3)">🥇 Oro<br><span class="msg">3 Moves</span></button>
+      <button class="btn lvl sec" onclick="logDay(1)">🥉<br><span class="msg">1 Move</span></button>
+      <button class="btn lvl sec" onclick="logDay(2)">🥈<br><span class="msg">2 Moves</span></button>
+      <button class="btn lvl sec" onclick="logDay(3)">🥇<br><span class="msg">3 Moves</span></button>
     </div>
     <label>¿Qué has hecho? (visible para todos)</label><input id="aWhat" placeholder="Correr 6k / gym / pádel…">
     ${cfg.quedada?`<label style="margin-top:8px"><input type="checkbox" id="aQuedada" style="width:auto"> Actividad conjunta (+1 Move)</label>`:''}
-    <div class="err" id="aErr">${done?'Hoy ya está apuntado — puedes corregirlo eligiendo nivel de nuevo.':''}</div>
+    <div class="err" id="aErr"></div>
   </div>
   <div class="card"><h2>Mi semana</h2>
     ${myActs.length?`<table><tr><th>Día</th><th>Nivel</th><th>Actividad</th><th></th></tr>${
-      myActs.map(a=>`<tr><td>${a.day.slice(5)}</td><td class="medal">${['','🥉','🥈','🥇'][a.level]}${a.quedada?' ✚':''}${a.adj?` <span class="pill">${a.adj>0?'+':''}${a.adj}</span>`:''}</td><td>${esc(a.activity||'')}</td>
+      myActs.map(a=>`<tr><td>${a.day.slice(5)}</td><td class="medal">${['','🥉','🥈','🥇'][a.level]}${a.quedada?' ✚':''}</td><td>${esc(a.activity||'')}</td>
       <td><button class="btn sec" style="padding:4px 8px;margin:0" onclick="delDay('${a.day}')">✕</button></td></tr>`).join('')}</table>`
       :'<p class="msg">Aún nada esta semana. Your move.</p>'}
-  </div>
-  <div class="card"><h2>La semana del grupo</h2>
-    <table><tr><th>Participante</th><th class="num">Días</th><th class="num">Moves</th></tr>${
-      [...L.players].map(p=>({p,d:actsOfWeek(p.id,w).length,m:movesOfWeek(p.id,w)}))
-        .sort((a,b)=>b.m-a.m)
-        .map(x=>`<tr><td>${esc(x.p.name)}${catBadge(x.p)}${x.p.id===SES.playerId?' <span class="pill">tú</span>':''}</td><td class="num">${x.d}</td><td class="num"><b>${x.m}</b></td></tr>`).join('')}</table>
-    <p class="msg" style="margin-top:6px">Ⓐ Amateur (umbrales -25 %) · Ⓔ Élite (+25 %) · sin marca: Profesional.</p>
-  </div>
-  ${btnBar()}`;
+  </div>`+btnBar(true);
 }
-
-function catBadge(p){
-  if(p.category==='amateur') return ' <span class="pill" title="Amateur: umbrales -25%">Ⓐ</span>';
-  if(p.category==='elite')   return ' <span class="pill" title="Élite: umbrales +25%">Ⓔ</span>';
-  return '';
+function pickPlayer(backTab){
+  $('#main').innerHTML=`
+  <div class="card"><h2>¿Quién eres?</h2>
+    <div class="row" style="margin-top:8px">${L.players.map(p=>
+      `<button class="btn sec" onclick="pick('${p.id}',${p.has_pin})">${esc(p.name)}${catBadge(p)}</button>`).join('')}</div>
+    <div id="pinBox"></div>
+  </div>`+btnBar();
+  window.pick=(id,hasPin)=>{
+    $('#pinBox').innerHTML=`
+      <label>${hasPin?'Tu PIN':'Crea un PIN (opcional, evita que otros apunten por ti)'}</label>
+      <input id="pPin" type="password" maxlength="8">
+      <button class="btn" onclick="confirmPick('${id}','${backTab}')">Confirmar</button>`;
+  };
 }
-function vPriv(){ document.getElementById('priv').style.display='block'; }
-function btnBar(){
-  return `<div class="row" style="margin-bottom:20px">
-    <button class="btn sec" onclick="refresh()">🔄 Actualizar</button>
-    <button class="btn sec" onclick="logout()">Salir</button>
-  </div>`;
+function confirmPick(id,backTab){
+  MEM[CUR]={playerId:id,pin:$('#pPin').value||null}; saveMem(); TAB=backTab||'apuntar'; render();
 }
-
-/* ================= ACCIONES ================= */
 async function logDay(level){
-  $('#aErr').textContent='';
+  const s=ses(); $('#aErr').textContent='';
   try{
-    const {error}=await sb.rpc('log_activity',{p_code:SES.code,p_player:SES.playerId,p_pin:SES.pin,
+    const {error}=await sb.rpc('log_activity',{p_code:CUR,p_player:s.playerId,p_pin:s.pin,
       p_day:$('#aDay').value,p_level:level,p_activity:$('#aWhat').value.trim()||null,
       p_quedada:$('#aQuedada')?$('#aQuedada').checked:false});
     if(error) throw error;
@@ -328,21 +440,190 @@ async function logDay(level){
   }catch(e){ $('#aErr').textContent=e.message||'Error al apuntar'; }
 }
 async function delDay(day){
+  const s=ses();
   try{
-    const {error}=await sb.rpc('delete_activity',{p_code:SES.code,p_player:SES.playerId,p_pin:SES.pin,p_day:day});
+    const {error}=await sb.rpc('delete_activity',{p_code:CUR,p_player:s.playerId,p_pin:s.pin,p_day:day});
     if(error) throw error;
     await refresh();
   }catch(e){ alert(e.message||'Error'); }
 }
-async function refresh(){
-  const {data,error}=await sb.rpc('get_league',{p_code:SES.code});
-  if(!error&&data){ L=data; vDash(); }
-}
-function logout(){ SES=null; localStorage.removeItem('yml_ses'); L=null; vHome(); }
 
-/* ================= ARRANQUE ================= */
+/* ---- pestaña MI DUELO ---- */
+function tDuelo(){
+  const s=ses(), w=weekIdx(), cfg=L.league.config;
+  if(!s){ pickPlayer('duelo'); return; }
+  if(w<0||w>=cfg.weeks){ $('#main').innerHTML=`<div class="card"><p class="msg">${w<0?'La liga aún no ha empezado.':'La liga ha terminado.'}</p></div>`+btnBar(); return; }
+  const me=L.players.find(p=>p.id===s.playerId);
+  const pair=pairsFor(w).find(([a,b])=>a===me.name||b===me.name);
+  if(!pair){ $('#main').innerHTML=`<div class="card"><p class="msg">Esta semana descansas.</p></div>`+btnBar(); return; }
+  const rivalName=pair[0]===me.name?pair[1]:pair[0];
+  const rival=byName(rivalName);
+  const ma=movesOfWeek(me.id,w);
+  const mb=rival?movesOfWeek(rival.id,w):Math.round((L.players.map(p=>movesOfWeek(p.id,w)).sort((a,b)=>a-b))[Math.floor(L.players.length/2)]||0);
+  const pA=Math.round(serieProb(ma,mb)*100);
+  const r=(L.rounds||[]).find(x=>x.number===w+1);
+  let resHtml='';
+  if(r){ const d=(r.data.duels||[]).find(x=>x.a===pair[0]&&x.b===pair[1]);
+    if(d) resHtml=`<p class="ok" style="margin-top:10px">Jornada resuelta: ${d.nulo?'duelo nulo':`ganó <b>${esc(d.winner)}</b> ${d.score}`}.</p>`; }
+  $('#main').innerHTML=`
+  <div class="card"><h2>Jornada ${w+1} · mi duelo</h2>
+    <div class="duelbox">
+      <div class="duelnames"><span style="color:var(--acc)">${esc(me.name)}</span><span style="color:var(--acc2)">${esc(rivalName)}</span></div>
+      <div class="duelmoves"><span>${ma} Moves</span><span>${mb} Moves</span></div>
+      <div class="bar"><div class="l" style="width:${pA}%"></div><div class="r" style="width:${100-pA}%"></div></div>
+      <div class="pcts"><span style="color:var(--acc)">${pA} %</span><span style="color:var(--acc2)">${100-pA} %</span></div>
+      <p class="msg" style="margin-top:8px">Duelo vivo hasta el domingo. ${pA>=50?'No te relajes':'Aún hay bola'} 👀</p>
+      ${resHtml}
+    </div>
+  </div>`+btnBar(true);
+}
+
+/* ---- pestaña ADMIN ---- */
+function tAdmin(){
+  const cfg=L.league.config, w=weekIdx();
+  const unresolved=[]; for(let j=0;j<cfg.weeks;j++){ if(!(L.rounds||[]).find(x=>x.number===j+1)) unresolved.push(j+1); }
+  $('#main').innerHTML=`
+  <div class="card"><h2>🎳 Resolver jornada</h2>
+    <p class="msg">Jornada en curso: ${w>=0&&w<cfg.weeks?w+1:'—'}. Puedes resolver cualquier jornada pendiente (quedará registrado y es irreversible).</p>
+    <label>Jornada</label><select id="rJor">${unresolved.map(j=>`<option ${j===w+1?'selected':''}>${j}</option>`).join('')}</select>
+    <button class="btn" onclick="resolverJornada()">Resolver con sorteo en directo</button>
+    <div class="err" id="rErr"></div>
+  </div>
+  <div class="card"><h2>⚙️ Configuración (todo cambio queda registrado)</h2>
+    <label>Premio / motivación</label><input id="ePrize" value="${esc(cfg.prize||'')}">
+    <label>Fecha de inicio</label><input type="date" id="eStart" value="${cfg.start}">
+    <div class="row">
+      <div style="flex:1"><label>Jornadas</label><input type="number" id="eWeeks" value="${cfg.weeks}" min="1" max="40"></div>
+      <div style="flex:1"><label>Máx. días/sem</label><select id="eMax">${[5,6,7].map(x=>`<option ${x===cfg.maxDays?'selected':''}>${x}</option>`).join('')}</select></div>
+      <div style="flex:1"><label>Bonus</label><select id="eBonus">${[[0,'No'],[3,'Día 3'],[4,'Día 4'],[5,'Día 5']].map(([v,t])=>`<option value="${v}" ${v===cfg.bonusDay?'selected':''}>${t}</option>`).join('')}</select></div>
+    </div>
+    <label style="margin-top:10px"><input type="checkbox" id="eQuedada" ${cfg.quedada?'checked':''} style="width:auto"> Actividad conjunta</label>
+    <label><input type="checkbox" id="eOculto" ${cfg.oculto?'checked':''} style="width:auto"> Rival oculto</label>
+    <label>Niveles por actividad</label><textarea id="eLevels" style="min-height:130px">${esc(cfg.levels||PLANTILLA_DEF)}</textarea>
+    <label>Motivo del cambio (visible para toda la liga)</label><input id="eReason" placeholder="p. ej. ajustamos el umbral de correr">
+    <button class="btn" onclick="saveConfig()">Guardar cambios</button><div class="err" id="eErr"></div>
+  </div>
+  <div class="card"><h2>± Ajuste de Moves (con motivo público)</h2>
+    <label>Participante</label><select id="jPlayer">${L.players.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select>
+    <div class="row">
+      <div style="flex:1"><label>Día</label><input type="date" id="jDay" value="${isoDay(new Date())}"></div>
+      <div style="flex:1"><label>Ajuste</label><input type="number" id="jAdj" value="1" min="-9" max="9"></div>
+    </div>
+    <label>Motivo</label><input id="jReason" placeholder="p. ej. ganó los bolos de la quedada">
+    <button class="btn sec" onclick="doAdjust()">Aplicar ajuste</button><div class="err" id="jErr"></div>
+  </div>`+btnBar();
+}
+async function saveConfig(){
+  const patch={ prize:$('#ePrize').value.trim(), start:$('#eStart').value,
+    weeks:parseInt($('#eWeeks').value), maxDays:parseInt($('#eMax').value),
+    bonusDay:parseInt($('#eBonus').value), quedada:$('#eQuedada').checked,
+    oculto:$('#eOculto').checked, levels:$('#eLevels').value };
+  try{
+    const {error}=await sb.rpc('admin_update_league',{p_code:CUR,p_patch:patch,p_reason:$('#eReason').value.trim()});
+    if(error) throw error;
+    await refresh(); TAB='liga'; render();
+  }catch(e){ $('#eErr').textContent=e.message; }
+}
+async function doAdjust(){
+  try{
+    const {error}=await sb.rpc('admin_adjust',{p_code:CUR,p_admin_code:null,p_player:$('#jPlayer').value,
+      p_day:$('#jDay').value,p_adj:parseInt($('#jAdj').value)||0,p_reason:$('#jReason').value.trim()});
+    if(error) throw error;
+    await refresh();
+  }catch(e){ $('#jErr').textContent=e.message; }
+}
+async function resolverJornada(){
+  const jNum=parseInt($('#rJor').value), w=jNum-1;
+  if(!confirm(`¿Resolver la jornada ${jNum}? El sorteo es definitivo.`)) return;
+  const moves={}, days={};
+  L.players.forEach(p=>{ moves[p.name]=movesOfWeek(p.id,w); days[p.name]=daysOfWeek(p.id,w); });
+  const med=(()=>{const v=Object.values(moves).sort((a,b)=>a-b);const n=v.length;return n?(n%2?v[(n-1)/2]:Math.round((v[n/2-1]+v[n/2])/2)):0;})();
+  const duels=pairsFor(w).map(([a,b])=>{
+    const ma=a==='La Media'?med:moves[a], mb=b==='La Media'?med:moves[b];
+    const d={a,b,ma,mb,days_a:days[a]||0,days_b:days[b]||0,draws:[],nulo:false,winner:null,score:''};
+    if(ma===0&&mb===0){ d.nulo=true; d.score='—'; return d; }
+    let wa=0,wb=0;
+    if(ma===0){wb=2;d.draws=['B','B'];}
+    else if(mb===0){wa=2;d.draws=['A','A'];}
+    else{ while(wa<2&&wb<2){ const r=Math.random()<ma/(ma+mb)?'A':'B'; d.draws.push(r); r==='A'?wa++:wb++; } }
+    d.winner=wa>wb?a:b; d.score=Math.max(wa,wb)+'-'+Math.min(wa,wb);
+    return d;
+  });
+  try{
+    const {error}=await sb.rpc('save_round',{p_code:CUR,p_admin_code:null,p_number:jNum,p_data:{duels,moves,days,version:VERSION}});
+    if(error) throw error;
+    await playPong(jNum,duels);
+    await refresh();
+  }catch(e){ $('#rErr').textContent=e.message; }
+}
+
+/* ---- PONG ---- */
+async function playPong(jNum,duels){
+  const ov=$('#ov'); let skip=false;
+  const sleep=ms=>new Promise(r=>setTimeout(r,skip?30:ms));
+  ov.classList.add('show');
+  for(let i=0;i<duels.length;i++){
+    const d=duels[i];
+    const pA=Math.round(serieProb(d.ma,d.mb)*100), pB=100-pA;
+    const cls=p=>p>50?'pcW':(p<50?'pcL':'pcN');
+    ov.innerHTML=`<div class="prog">Jornada ${jNum} · duelo ${i+1} de ${duels.length} · al mejor de 3</div>
+      <div class="intro">
+        <div style="text-align:left"><div class="pName" style="color:var(--acc)">${esc(d.a)}</div><div class="pMeta">${d.ma} Moves · <span class="pc ${cls(pA)}">${pA} %</span></div></div>
+        <div style="text-align:right"><div class="pName" style="color:var(--acc2)">${esc(d.b)}</div><div class="pMeta">${d.mb} Moves · <span class="pc ${cls(pB)}">${pB} %</span></div></div>
+      </div>
+      <div class="court" id="court"><div class="net"></div>
+        <div class="paddle A" id="padA"></div><div class="paddle B" id="padB"></div>
+        <div class="pball" id="ball" style="left:212px;top:92px"></div>
+      </div>
+      <div id="pscore">0 – 0</div><div id="pres"></div>
+      <div class="row" style="justify-content:center"><button class="btn sec" id="skipBtn">Saltar todo</button></div>`;
+    $('#skipBtn').onclick=()=>{ skip=true; };
+    await sleep(2200);
+    if(d.nulo){ $('#pres').textContent='Duelo nulo (0 Moves ambos)'; await sleep(1800); continue; }
+    const ball=$('#ball'), padA=$('#padA'), padB=$('#padB');
+    const court=$('#court'), W=court.clientWidth||440;
+    const LX=26, RX=W-42, MIDX=(W-16)/2;
+    let sc={A:0,B:0};
+    for(const r of d.draws){                       // r = quien GANA la extracción
+      const rally=3+Math.floor(Math.random()*4);   // 3-6 golpes antes del fallo
+      let side=Math.random()<.5?'A':'B';           // saque aleatorio
+      ball.style.transition='none'; ball.style.left=MIDX+'px'; ball.style.top='92px';
+      await sleep(320);
+      ball.style.transition='left .5s linear, top .5s ease';
+      for(let k=0;k<rally;k++){
+        const y=20+Math.random()*150;
+        ball.style.left=(side==='A'?LX:RX)+'px'; ball.style.top=y+'px';
+        (side==='A'?padA:padB).style.top=Math.max(0,Math.min(148,y-22))+'px';
+        side=side==='A'?'B':'A';
+        await sleep(520);
+      }
+      // el punto lo gana r → falla el otro: la bola pasa de largo por su lado
+      const loser=r==='A'?'B':'A';
+      const y=20+Math.random()*150;
+      (loser==='A'?padA:padB).style.top=(y>95?20:130)+'px';   // la pala va al lado equivocado
+      ball.style.left=(loser==='A'?-30:W+14)+'px'; ball.style.top=y+'px';
+      sc[r]++; await sleep(560);
+      $('#pscore').textContent=sc.A+' – '+sc.B;
+      await sleep(700);
+    }
+    $('#pres').innerHTML=`🏆 <span class="w">${esc(d.winner)}</span> gana ${d.score}`;
+    await sleep(2400);
+  }
+  ov.classList.remove('show');
+}
+
+/* ============ VARIOS ============ */
+function btnBar(){
+  return `<div class="row" style="margin-bottom:20px">
+    <button class="btn sec" onclick="refresh()">🔄 Actualizar</button>
+    <button class="btn sec" onclick="exitLeague()">Salir de la liga</button></div>`;
+}
+
+/* ============ ARRANQUE ============ */
 (async ()=>{
-  if(SES&&SES.code){ await join(SES.code); } else { vHome(); }
+  const {data}=await sb.auth.getUser();
+  USER=data?data.user:null;
+  if(CUR){ await goLeague(CUR); } else { vHome(); }
 })();
 </script>
 </body>
